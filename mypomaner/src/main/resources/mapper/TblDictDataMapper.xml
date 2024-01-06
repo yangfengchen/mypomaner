@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ddzj.mypomaner.mapper.TblDictDataMapper">
+    <select id="findByDictCode" parameterType="java.lang.String" resultType="com.ddzj.mypomaner.entity.TblDictData">
+        select * from tbl_dict_data
+        <where>
+            <if test="dictCode!=null and dictCode!=null">
+                and dict_code=#{dictCode}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryPageByEntityDto" resultType="com.ddzj.mypomaner.entity.TblDictData">
+        select * from tbl_dict_data
+        <where>
+            <if test="entityDto.dictCode!=null and entityDto.dictCode !=''">
+                and dict_code=#{entityDto.dictCode}
+            </if>
+        </where>
+    </select>
+
+    <select id="getMaxSortByDictCode" resultType="java.lang.Integer">
+        select max(dict_sort) from tbl_dict_data
+        <where>
+            <if test="dictCode!=null and dictCode !=''">
+                and dict_code=#{dictCode}
+            </if>
+        </where>
+    </select>
+</mapper>

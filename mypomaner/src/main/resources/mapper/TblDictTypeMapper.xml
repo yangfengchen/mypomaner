@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ddzj.mypomaner.mapper.TblDictTypeMapper">
+
+    <select id="findByDictType" parameterType="java.lang.String" resultType="com.ddzj.mypomaner.entity.TblDictType">
+        select * from TBL_DICT_TYPE
+        <where>
+            <if test="dictType!='' and dictType!=null">
+                and dict_type=#{dictType}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryPageByEntityDto" resultType="com.ddzj.mypomaner.entity.TblDictType">
+        select * from TBL_DICT_TYPE
+        <where>
+            <if test="entityDto.dictType!=null and entityDto.dictType!=null">
+                and dict_type=#{entityDto}
+            </if>
+        </where>
+    </select>
+
+    <select id="findListByDictType" resultType="com.ddzj.mypomaner.entity.TblDictType">
+        select * from TBL_DICT_TYPE
+        <where>
+            <if test="dictTypes!=null and dictTypes.size()>0">
+                and dict_type in
+                 <foreach collection="dictTypes" item="dictType" open="(" separator="," close=")">
+                     #{dictType}
+                 </foreach>
+            </if>
+        </where>
+    </select>
+
+</mapper>
