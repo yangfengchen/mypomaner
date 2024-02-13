@@ -9,6 +9,7 @@ import com.ddzj.mypomaner.vo.FieldConfigListVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
@@ -18,26 +19,24 @@ import java.util.List;
  * @Description:
  * @Version:1.0
  **/
-@Mapper(componentModel = "Spring")
+@Mapper(componentModel = "Spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface FieldConfigVoConverter {
 
-    @Mappings({
+    /*@Mappings({
             @Mapping(ignore = true, target = "databaseTypeName"),
             @Mapping(ignore = true, target = "fieldDbTypeName")
-    })
+    })*/
     FieldConfigListVo tblFieldConfigToFieldConfigListVo(TblFieldConfig tblFieldConfig);
 
     /*@Mappings({
             @Mapping(ignore = true, target = "databaseTypeName"),
             @Mapping(ignore = true, target = "fieldDbTypeName")
     })*/
-//    FieldConfigSaveDto tblFieldConfigToFieldConfigListVo(TblFieldConfig tblFieldConfig);
+    FieldConfigSaveDto tblFieldConfigToFieldConfigSaveDto(TblFieldConfig tblFieldConfig);
 
     /*@Mappings({
             @Mapping(ignore = true, target = "databaseTypeName"),
             @Mapping(ignore = true, target = "fieldDbTypeName")
     })*/
-/*
     List<FieldConfigSaveDto> tblFieldConfigToFieldConfigSaveDto(List<TblFieldConfig> tblFieldConfigs);
-*/
 }

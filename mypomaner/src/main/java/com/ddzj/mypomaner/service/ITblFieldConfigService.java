@@ -55,4 +55,11 @@ public interface ITblFieldConfigService extends IService<TblFieldConfig> {
      * @return
      */
     List<TblFieldConfig> findByDatabaseType(String databaseType);
+
+    /**
+     * 保存字段配置
+     * @param entitys
+     * @return
+     */
+    List<TblFieldConfig> saveDtoList(List<FieldConfigSaveDto> entitys);
 }

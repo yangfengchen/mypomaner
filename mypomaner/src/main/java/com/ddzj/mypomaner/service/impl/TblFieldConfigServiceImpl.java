@@ -12,12 +12,15 @@ import com.ddzj.mypomaner.mapper.TblFieldConfigMapper;
 import com.ddzj.mypomaner.service.DateService;
 import com.ddzj.mypomaner.service.ITblFieldConfigService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -45,19 +48,7 @@ public class TblFieldConfigServiceImpl extends ServiceImpl<TblFieldConfigMapper,
 
     @Override
     public TblFieldConfig saveDto(FieldConfigSaveDto entity) {
-        TblFieldConfig tblFieldConfig = this.findById(entity.getId());
-        if(tblFieldConfig == null){
-            tblFieldConfig = new TblFieldConfig();
-            tblFieldConfig.setCreatedTime(dateService.getLocalDateTimeNow());
-            tblFieldConfig.setId(entity.getId());
-        }
-        tblFieldConfig.setDatabaseType(entity.getDatabaseType());
-        tblFieldConfig.setFieldDbType(entity.getFieldDbType());
-        tblFieldConfig.setFieldCodeType(entity.getFieldCodeType());
-        tblFieldConfig.setFieldBaseType(entity.getFieldBaseType());
-        tblFieldConfig.setFieldDefLen(entity.getFieldDefLen());
-        tblFieldConfig.setFieldDefDecimal(entity.getFieldDefDecimal());
-        tblFieldConfig.setUpdatedTime(dateService.getLocalDateTimeNow());
+        TblFieldConfig tblFieldConfig = buildTblFieldConfig(entity);
         this.saveOrUpdate(tblFieldConfig);
         return tblFieldConfig;
     }
@@ -74,6 +65,18 @@ public class TblFieldConfigServiceImpl extends ServiceImpl<TblFieldConfigMapper,
         return this.list(buildLambdaQueryWrapper(fieldConfigSearchPageDto));
     }
 
+    @Override
+    public List<TblFieldConfig> saveDtoList(List<FieldConfigSaveDto> entitys) {
+        if(CollectionUtils.isEmpty(entitys)){
+            return Lists.newArrayList();
+        }
+        List<TblFieldConfig> tblFieldConfigs = entitys.stream().map(entity->{
+            return buildTblFieldConfig(entity);
+        }).collect(Collectors.toList());
+        this.saveBatch(tblFieldConfigs);
+        return tblFieldConfigs;
+    }
+
     public LambdaQueryWrapper<TblFieldConfig> buildLambdaQueryWrapper(FieldConfigSearchPageDto fieldConfigSearchPageDto){
         LambdaQueryWrapper<TblFieldConfig> lambdaQueryWrapper = new LambdaQueryWrapper<TblFieldConfig>();
         if(StringUtils.isNotBlank(fieldConfigSearchPageDto.getDatabaseType())){
@@ -83,5 +86,22 @@ public class TblFieldConfigServiceImpl extends ServiceImpl<TblFieldConfigMapper,
             lambdaQueryWrapper.eq(TblFieldConfig::getFieldDbType, fieldConfigSearchPageDto.getFieldDbType());
         }
         return lambdaQueryWrapper;
+    }
+
+    private TblFieldConfig buildTblFieldConfig(FieldConfigSaveDto entity){
+        TblFieldConfig tblFieldConfig = this.findById(entity.getId());
+        if(tblFieldConfig == null){
+            tblFieldConfig = new TblFieldConfig();
+            tblFieldConfig.setCreatedTime(dateService.getLocalDateTimeNow());
+            tblFieldConfig.setId(entity.getId());
+        }
+        tblFieldConfig.setDatabaseType(entity.getDatabaseType());
+        tblFieldConfig.setFieldDbType(entity.getFieldDbType());
+        tblFieldConfig.setFieldCodeType(entity.getFieldCodeType());
+        tblFieldConfig.setFieldBaseType(entity.getFieldBaseType());
+        tblFieldConfig.setFieldDefLen(entity.getFieldDefLen());
+        tblFieldConfig.setFieldDefDecimal(entity.getFieldDefDecimal());
+        tblFieldConfig.setUpdatedTime(dateService.getLocalDateTimeNow());
+        return tblFieldConfig;
     }
 }

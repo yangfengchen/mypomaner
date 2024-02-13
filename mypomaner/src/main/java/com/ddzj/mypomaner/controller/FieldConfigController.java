@@ -71,17 +71,29 @@ public class FieldConfigController {
     }
 
     /**
-     * 初始化新增逻辑
+     * 添加数据对象
      * @return
      */
     @GetMapping("/add/{databaseType}")
     public AjaxResultVo add(@PathVariable("databaseType")String databaseType){
+        TblFieldConfig tblFieldConfig = new TblFieldConfig();
+        tblFieldConfig.setId(IdUtils.getSnowflakeIdWorkerId());
+        tblFieldConfig.setDatabaseType(databaseType);
+        return AjaxResultVo.ok(tblFieldConfig);
+    }
+
+    /**
+     * 初始化新增逻辑
+     * @return
+     */
+    @GetMapping("/addList/{databaseType}")
+    public AjaxResultVo addList(@PathVariable("databaseType")String databaseType){
         FieldConfigEditDto fieldConfigEditDto = new FieldConfigEditDto();
         fieldConfigEditDto.setFieldDbTypeList(iSelectDictDataCommonService.getFieldDbTypeSelectList());
         fieldConfigEditDto.setDbList(iSelectDictDataCommonService.getDbTypeSelectList());
         List<TblFieldConfig> tblFieldConfigs = iTblFieldConfigService.findByDatabaseType(databaseType);
         if(CollectionUtils.isNotEmpty(tblFieldConfigs)){
-           // fieldConfigEditDto.setFieldConfigSaveDtos(fieldConfigVoConverter.tblFieldConfigToFieldConfigListVo(tblFieldConfigs));
+            fieldConfigEditDto.setFieldConfigSaveDtos(fieldConfigVoConverter.tblFieldConfigToFieldConfigSaveDto(tblFieldConfigs));
         }
         return AjaxResultVo.ok(fieldConfigEditDto);
     }
@@ -91,12 +103,12 @@ public class FieldConfigController {
      * @param databaseType
      * @return
      */
-    @GetMapping("/edit/{databaseType}")
+    @GetMapping("/editList/{databaseType}")
     public AjaxResultVo edit(@PathVariable String databaseType){
         List<TblFieldConfig> tblFieldConfigs = iTblFieldConfigService.findByDatabaseType(databaseType);
         FieldConfigEditDto fieldConfigEditDto = new FieldConfigEditDto();
-        //List<FieldConfigSaveDto> fieldConfigSaveDtos = fieldConfigVoConverter.tblFieldConfigToFieldConfigSaveDto(tblFieldConfigs);
-        //fieldConfigEditDto.setFieldConfigSaveDtos(fieldConfigSaveDtos);
+        List<FieldConfigSaveDto> fieldConfigSaveDtos = fieldConfigVoConverter.tblFieldConfigToFieldConfigSaveDto(tblFieldConfigs);
+        fieldConfigEditDto.setFieldConfigSaveDtos(fieldConfigSaveDtos);
         fieldConfigEditDto.setFieldDbTypeList(iSelectDictDataCommonService.getFieldDbTypeSelectList());
         fieldConfigEditDto.setDbList(iSelectDictDataCommonService.getDbTypeSelectList());
         return AjaxResultVo.ok(fieldConfigEditDto);
@@ -104,13 +116,13 @@ public class FieldConfigController {
 
     /**
      * 保存数据
-     * @param entity
+     * @param entitys
      * @return
      */
     @PostMapping("/save")
-    public AjaxResultVo save(@RequestBody FieldConfigSaveDto entity){
-        TblFieldConfig tblFieldConfig = iTblFieldConfigService.saveDto(entity);
-        if(tblFieldConfig != null){
+    public AjaxResultVo save(@RequestBody List<FieldConfigSaveDto> entitys){
+        List<TblFieldConfig> tblFieldConfigs = iTblFieldConfigService.saveDtoList(entitys);
+        if(tblFieldConfigs != null){
             return AjaxResultVo.ok("保存成功");
         }
         return AjaxResultVo.error("保存失败");
@@ -120,17 +132,6 @@ public class FieldConfigController {
     public AjaxResultVo deleteById(@PathVariable("id")String id){
         iTblFieldConfigService.delteById(id);
         return AjaxResultVo.ok("删除数据成功");
-    }
-
-    /**
-     * 添加数据对象
-     * @return
-     */
-    @GetMapping("/addFieldConfigData")
-    public AjaxResultVo addFieldConfigData(){
-        TblFieldConfig tblFieldConfig = new TblFieldConfig();
-        tblFieldConfig.setId(IdUtils.getSnowflakeIdWorkerId());
-        return AjaxResultVo.ok(tblFieldConfig);
     }
 
 }
