@@ -25,6 +25,9 @@ public class TblProjectTable extends AbstractEntity  {
     private Integer enabled;
 
     private String projectCode;
+    private String znName;
+
+    private String codeName;
 
     public String getPrefixName() {
         return prefixName;
@@ -72,6 +75,44 @@ public class TblProjectTable extends AbstractEntity  {
             ", name = " + name +
             ", enabled = " + enabled +
             ", projectCode = " + projectCode +
+            ", znName = " + znName +
+            ", codeName = " + codeName +
         "}";
+    }
+
+    /**
+     * 获取
+     *
+     * @return znName
+     */
+    public String getZnName() {
+        return this.znName;
+    }
+
+    /**
+     * 设置
+     *
+     * @param znName
+     */
+    public void setZnName(String znName) {
+        this.znName = znName;
+    }
+
+    /**
+     * 获取
+     *
+     * @return codeName
+     */
+    public String getCodeName() {
+        return this.codeName;
+    }
+
+    /**
+     * 设置
+     *
+     * @param codeName
+     */
+    public void setCodeName(String codeName) {
+        this.codeName = codeName;
     }
 }

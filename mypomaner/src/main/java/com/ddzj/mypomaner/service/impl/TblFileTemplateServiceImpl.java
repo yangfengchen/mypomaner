@@ -1,9 +1,13 @@
 package com.ddzj.mypomaner.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ddzj.mypomaner.dto.FileTemplateSaveDto;
+import com.ddzj.mypomaner.dto.FileTemplateSearchDto;
+import com.ddzj.mypomaner.dto.TableTemplateSearchPageDto;
 import com.ddzj.mypomaner.entity.TblFieldConfig;
 import com.ddzj.mypomaner.entity.TblFileTemplate;
+import com.ddzj.mypomaner.entity.TblTableTemplate;
 import com.ddzj.mypomaner.mapper.TblFileTemplateMapper;
 import com.ddzj.mypomaner.service.DateService;
 import com.ddzj.mypomaner.service.ITblFileTemplateService;
@@ -30,6 +34,19 @@ public class TblFileTemplateServiceImpl extends ServiceImpl<TblFileTemplateMappe
 
     @Autowired
     private DateService dateService;
+
+    @Override
+    public List<TblFileTemplate> findBySearchDto(FileTemplateSearchDto searchDto) {
+        return this.baseMapper.selectList(buildLambdaQueryWrapper(searchDto));
+    }
+
+    public LambdaQueryWrapper<TblFileTemplate> buildLambdaQueryWrapper(FileTemplateSearchDto searchDto){
+        LambdaQueryWrapper<TblFileTemplate> lambdaQueryWrapper = new LambdaQueryWrapper<TblFileTemplate>();
+        if(StringUtils.isNotBlank(searchDto.getTableId())){
+            lambdaQueryWrapper.eq(TblFileTemplate::getTableId, searchDto.getTableId());
+        }
+        return lambdaQueryWrapper;
+    }
 
     @Override
     public List<TblFileTemplate> saveDtoList(List<FileTemplateSaveDto> entitys) {
@@ -62,6 +79,8 @@ public class TblFileTemplateServiceImpl extends ServiceImpl<TblFileTemplateMappe
         entity.setFileHtmlType(fileTemplateSaveDto.getFileHtmlType());
         entity.setTableId(fileTemplateSaveDto.getTableId());
         entity.setEnabled(fileTemplateSaveDto.getEnabled());
+        entity.setFileDtoStatus(fileTemplateSaveDto.getFileDtoStatus());
+        entity.setFileVoStatus(fileTemplateSaveDto.getFileVoStatus());
         return entity;
     }
 }

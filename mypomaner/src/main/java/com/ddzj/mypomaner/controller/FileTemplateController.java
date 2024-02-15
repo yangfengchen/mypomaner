@@ -2,15 +2,18 @@ package com.ddzj.mypomaner.controller;
 
 import com.ddzj.mypomaner.dto.FileTemplateListDto;
 import com.ddzj.mypomaner.dto.FileTemplateSaveDto;
+import com.ddzj.mypomaner.dto.FileTemplateSearchDto;
+import com.ddzj.mypomaner.dto.SelectDto;
 import com.ddzj.mypomaner.dto.converterdto.FileTemplateDtoConverter;
 import com.ddzj.mypomaner.entity.TblFileTemplate;
+import com.ddzj.mypomaner.entity.TblTableTemplate;
 import com.ddzj.mypomaner.service.ITblFileTemplateService;
+import com.ddzj.mypomaner.service.ITblTableTemplateService;
 import com.ddzj.mypomaner.service.common.ISelectDictDataCommonService;
 import com.ddzj.mypomaner.vo.AjaxResultVo;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/fileTemplate")
-public class TblFileTemplateController {
+public class FileTemplateController {
 
     @Autowired
     private ISelectDictDataCommonService iSelectDictDataCommonService;
@@ -33,6 +36,8 @@ public class TblFileTemplateController {
     private ITblFileTemplateService iTblFileTemplateService;
     @Autowired
     private FileTemplateDtoConverter fileTemplateDtoConverter;
+    @Autowired
+    private ITblTableTemplateService iTblTableTemplateService;
 
     /**
      * 初始化查询方法
@@ -41,7 +46,13 @@ public class TblFileTemplateController {
     @GetMapping("/initsearch")
     public AjaxResultVo initsearch(){
         FileTemplateListDto listDto = new FileTemplateListDto();
+        List<TblTableTemplate> tableTemplates = iTblTableTemplateService.list();
+        List<SelectDto> tableTemplateList = Lists.newArrayList();
+        for(TblTableTemplate tblTableTemplate : tableTemplates){
+            tableTemplateList.add(new SelectDto(tblTableTemplate.getName(), tblTableTemplate.getCode()));
+        }
         listDto.setFieldDbTypeList(iSelectDictDataCommonService.getFieldDbTypeSelectList());
+        listDto.setTableTemplateList(tableTemplateList);
         return AjaxResultVo.ok(listDto);
     }
 
@@ -50,8 +61,8 @@ public class TblFileTemplateController {
      * @returnÂ
      */
     @PostMapping("/restList")
-    public AjaxResultVo restList(){
-        List<TblFileTemplate> tblFileTemplateList = iTblFileTemplateService.list();
+    public AjaxResultVo restList(@RequestBody FileTemplateSearchDto searchDto){
+        List<TblFileTemplate> tblFileTemplateList = iTblFileTemplateService.findBySearchDto(searchDto);
         List<FileTemplateSaveDto> fileTemplateSaveDtos = Lists.newArrayList();
         if(CollectionUtils.isNotEmpty(tblFileTemplateList)){
             fileTemplateSaveDtos = fileTemplateDtoConverter.entityToSaveDto(tblFileTemplateList);

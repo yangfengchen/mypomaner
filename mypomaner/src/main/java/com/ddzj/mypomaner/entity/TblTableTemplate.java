@@ -22,7 +22,10 @@ public class TblTableTemplate extends AbstractEntity {
 
     private String name;
 
-    private Integer enabled;
+    private Boolean enabled;
+    private String code;
+
+
     public String getPrefixName() {
         return prefixName;
     }
@@ -39,11 +42,11 @@ public class TblTableTemplate extends AbstractEntity {
         this.name = name;
     }
 
-    public Integer getEnabled() {
+    public Boolean getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(Integer enabled) {
+    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 
@@ -60,6 +63,25 @@ public class TblTableTemplate extends AbstractEntity {
             ", prefixName = " + prefixName +
             ", name = " + name +
             ", enabled = " + enabled +
+            ", code = " + code +
         "}";
+    }
+
+    /**
+     * 获取
+     *
+     * @return code
+     */
+    public String getCode() {
+        return this.code;
+    }
+
+    /**
+     * 设置
+     *
+     * @param code
+     */
+    public void setCode(String code) {
+        this.code = code;
     }
 }

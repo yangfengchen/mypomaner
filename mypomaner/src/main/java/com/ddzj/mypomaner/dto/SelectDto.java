@@ -6,6 +6,13 @@ public class SelectDto {
     // 值
     private String value;
 
+    public SelectDto(){}
+
+    public SelectDto(String label, String value){
+        this.label = label;
+        this.value = value;
+    }
+
     /**
      * 获取 显示名称
      *

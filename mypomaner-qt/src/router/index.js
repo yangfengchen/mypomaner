@@ -4,6 +4,7 @@ import dictDataList from '@/views/dictData/list.vue'
 import dictTypeList from '@/views/dictType/list.vue'
 import fieldConfigList from '@/views/fieldConfig/list.vue'
 import fileTemplateList from '@/views/fileTemplate/list.vue'
+import tableTemplateList from '@/views/tableTemplate/list.vue'
 
 
 const router = createRouter({
@@ -46,6 +47,11 @@ const router = createRouter({
       path: '/fileTemplateList',
       name: 'fileTemplateList',
       component: fileTemplateList
+    },
+    {
+      path: '/tableTemplateList',
+      name: 'tableTemplateList',
+      component: tableTemplateList
     }
   ]
 })

@@ -2,13 +2,23 @@
   <div class="container">
     <lay-row space="12">
       <lay-col md="12">
+        <lay-form-item label="标签类型">
+          <lay-select class="selectCustomCss" v-model="selectTableTemplateCode" :show-search="true"
+            @change="changeTableTemplateCode" :allow-clear="true">
+            <template v-for="item in tableTemplateList">
+              <lay-select-option :value="item.value" :label="item.label" />
+            </template>
+          </lay-select>
+        </lay-form-item>
+      </lay-col>
+      <lay-col md="10">
         <lay-button @click="addData">添加数据</lay-button>
         <lay-button @click="saveOpData">保存数据</lay-button>
         <lay-button @click="toHome" type="normal">返回主页</lay-button>
       </lay-col>
     </lay-row>
     <lay-row>
-      <lay-table :columns="tableThead" :data-source="tableTbody" >
+      <lay-table :columns="tableThead" :data-source="tableTbody">
         <template #fileCode="{ row }">
           <lay-input v-model="row.fileCode" />
         </template>
@@ -25,7 +35,7 @@
           <lay-switch v-model="row.fileAuto"></lay-switch>
         </template>
         <template #fileDataType="{ row }">
-          <lay-select v-model="row.fileDataType" >
+          <lay-select v-model="row.fileDataType">
             <template v-for="item in fieldDbTypeList">
               <lay-select-option :value="item.value" :label="item.label" />
             </template>
@@ -61,8 +71,8 @@
   </div>
 </template>
 <script setup>
-import {reactive, onBeforeMount, onMounted, ref, watch} from 'vue'
-import {useRouter, useRoute} from 'vue-router'
+import { reactive, onBeforeMount, onMounted, ref, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { getinitsearch, getListData, saveListData } from '@/api/fileTemplate/fileTemplateApi'
 import { getIdByType } from '@/api/idgenerate/idgenerateApi'
 import { layerSuccess, layerError } from '@/api/messageBuilder'
@@ -70,31 +80,42 @@ import { layer } from '@layui/layui-vue'
 
 
 const router = useRouter()
-let fieldDbTypeList = ref([])
+let fieldDbTypeList = ref( [] )
+let tableTemplateList = ref( [] )
+let selectTableTemplateCode = ref('')
+let searchDto = reactive({})
 
-onBeforeMount(() => {
+onBeforeMount( () =>
+{
   //console.log('2.组件挂载页面之前执行----onBeforeMount')
-})
-onMounted(() => {
+} )
+onMounted( () =>
+{
   //console.log('3.-组件挂载到页面之后执行-------onMounted')
   getinitsearch().then( data =>
   {
     fieldDbTypeList.value = data.fieldDbTypeList;
+    tableTemplateList.value = data.tableTemplateList;
+    if(data.tableTemplateList && data.tableTemplateList.length > 0){
+      selectTableTemplateCode.value = data.tableTemplateList[0].value;
+    }
     loadData();
   } )
-})
+} )
 
 let tableTbody = ref( [] )
 
 const loadData = () =>
 {
-  getListData().then(data => {
+  searchDto.tableId = selectTableTemplateCode;
+  getListData(searchDto).then( data =>
+  {
     tableTbody.value = data
-  })
+  } )
 }
 
 let tableThead = [
-{
+  {
     title: "字段代码",
     width: "200px",
     key: "fileCode",
@@ -135,7 +156,7 @@ let tableThead = [
     width: "200px",
     key: "fileLen",
     customSlot: "fileLen"
-  }, 
+  },
   {
     title: "字段小数位",
     width: "200px",
@@ -171,7 +192,7 @@ let tableThead = [
     width: "200px",
     key: "enabled",
     customSlot: "enabled"
-  },{
+  }, {
     title: "操作", width: "150px", customSlot: "operator", ignoreExport: true
   }
 ];
@@ -194,8 +215,10 @@ function addData ()
       fileDec: '',
       fileDefaultVal: '',
       fileHtmlType: '',
-      tableId: '',
-      enabled: true
+      tableId: selectTableTemplateCode,
+      enabled: true,
+      fileDtoStatus: false,
+      fileVoStatus: false
     }
     tableTbody.value.push( _obj )
   } )
@@ -215,14 +238,17 @@ function saveOpData ()
     layerSuccess( data )
   } )
 }
-const toHome = () =>{
-    router.push({path: '/'})
+const toHome = () =>
+{
+  router.push( { path: '/' } )
 }
 
+const changeTableTemplateCode = () =>
+{
+
+}
 
 
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

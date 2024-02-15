@@ -24,6 +24,11 @@ const toFieldConfigView = () =>
   router.push({path: '/fieldConfigList'})
 }
 
+const toTableTemplateView = () =>
+{
+  router.push({path: '/tableTemplateList'})
+}
+
 const toFileTemplateView = () =>
 {
   router.push({path: '/fileTemplateList'})
@@ -56,6 +61,7 @@ const toFileTemplateView = () =>
         <template #content>
           <lay-dropdown-menu>
             <lay-dropdown-menu-item @click="toFieldConfigView">基础字段配置</lay-dropdown-menu-item>
+            <lay-dropdown-menu-item @click="toTableTemplateView">基础表配置</lay-dropdown-menu-item>
             <lay-dropdown-menu-item @click="toFileTemplateView">默认字段配置</lay-dropdown-menu-item>
           </lay-dropdown-menu>
         </template>

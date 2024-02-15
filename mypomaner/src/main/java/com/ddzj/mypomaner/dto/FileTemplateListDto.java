@@ -9,8 +9,12 @@ import java.util.List;
  * @Version:1.0
  **/
 public class FileTemplateListDto {
+    // 表类型
+    private List<SelectDto> tableTemplateList;
+
     // 字段类型
     private List<SelectDto> fieldDbTypeList;
+
 
     /**
      * 获取 字段类型
@@ -28,5 +32,23 @@ public class FileTemplateListDto {
      */
     public void setFieldDbTypeList(List<SelectDto> fieldDbTypeList) {
         this.fieldDbTypeList = fieldDbTypeList;
+    }
+
+    /**
+     * 获取 表类型
+     *
+     * @return tableTemplateList 表类型
+     */
+    public List<SelectDto> getTableTemplateList() {
+        return this.tableTemplateList;
+    }
+
+    /**
+     * 设置 表类型
+     *
+     * @param tableTemplateList 表类型
+     */
+    public void setTableTemplateList(List<SelectDto> tableTemplateList) {
+        this.tableTemplateList = tableTemplateList;
     }
 }
