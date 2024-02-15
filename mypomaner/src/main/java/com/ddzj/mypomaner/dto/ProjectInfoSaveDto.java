@@ -1,6 +1,12 @@
-package com.ddzj.mypomaner.vo;
+package com.ddzj.mypomaner.dto;
 
-public class ProjectInfoListVo {
+/**
+ * @Author:yangzibo
+ * @CreateTime:2024-02-15 15:22
+ * @Description:
+ * @Version:1.0
+ **/
+public class ProjectInfoSaveDto {
     private String id;
     private String projectName;
 
@@ -8,12 +14,14 @@ public class ProjectInfoListVo {
 
     private String projectZnName;
 
-    private String tableTemplateCodeName;
+    private String tableTemplateCode;
 
-    private String databaseTypeName;
+    private String databaseType;
 
-    private String codeTypeName;
+    private String codeType;
+
     private String packageName;
+
 
     /**
      * 获取
@@ -90,55 +98,55 @@ public class ProjectInfoListVo {
     /**
      * 获取
      *
-     * @return tableTemplateCodeName
+     * @return tableTemplateCode
      */
-    public String getTableTemplateCodeName() {
-        return this.tableTemplateCodeName;
+    public String getTableTemplateCode() {
+        return this.tableTemplateCode;
     }
 
     /**
      * 设置
      *
-     * @param tableTemplateCodeName
+     * @param tableTemplateCode
      */
-    public void setTableTemplateCodeName(String tableTemplateCodeName) {
-        this.tableTemplateCodeName = tableTemplateCodeName;
+    public void setTableTemplateCode(String tableTemplateCode) {
+        this.tableTemplateCode = tableTemplateCode;
     }
 
     /**
      * 获取
      *
-     * @return databaseTypeName
+     * @return databaseType
      */
-    public String getDatabaseTypeName() {
-        return this.databaseTypeName;
+    public String getDatabaseType() {
+        return this.databaseType;
     }
 
     /**
      * 设置
      *
-     * @param databaseTypeName
+     * @param databaseType
      */
-    public void setDatabaseTypeName(String databaseTypeName) {
-        this.databaseTypeName = databaseTypeName;
+    public void setDatabaseType(String databaseType) {
+        this.databaseType = databaseType;
     }
 
     /**
      * 获取
      *
-     * @return codeTypeName
+     * @return codeType
      */
-    public String getCodeTypeName() {
-        return this.codeTypeName;
+    public String getCodeType() {
+        return this.codeType;
     }
 
     /**
      * 设置
      *
-     * @param codeTypeName
+     * @param codeType
      */
-    public void setCodeTypeName(String codeTypeName) {
-        this.codeTypeName = codeTypeName;
+    public void setCodeType(String codeType) {
+        this.codeType = codeType;
     }
 
     /**

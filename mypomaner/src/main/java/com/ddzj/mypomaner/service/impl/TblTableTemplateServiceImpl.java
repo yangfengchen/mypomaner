@@ -3,21 +3,17 @@ package com.ddzj.mypomaner.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.ddzj.mypomaner.dto.FieldConfigSaveDto;
-import com.ddzj.mypomaner.dto.FieldConfigSearchPageDto;
 import com.ddzj.mypomaner.dto.TableTemplateSaveDto;
 import com.ddzj.mypomaner.dto.TableTemplateSearchPageDto;
-import com.ddzj.mypomaner.entity.TblFieldConfig;
-import com.ddzj.mypomaner.entity.TblFileTemplate;
+import com.ddzj.mypomaner.entity.TblFieldTemplate;
 import com.ddzj.mypomaner.entity.TblTableTemplate;
-import com.ddzj.mypomaner.mapper.TblFileTemplateMapper;
+import com.ddzj.mypomaner.mapper.TblFieldTemplateMapper;
 import com.ddzj.mypomaner.mapper.TblTableTemplateMapper;
 import com.ddzj.mypomaner.service.DateService;
 import com.ddzj.mypomaner.service.ITblTableTemplateService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +33,7 @@ public class TblTableTemplateServiceImpl extends ServiceImpl<TblTableTemplateMap
     @Autowired
     private DateService dateService;
     @Autowired
-    private TblFileTemplateMapper tblFileTemplateMapper;
+    private TblFieldTemplateMapper tblFieldTemplateMapper;
 
     @Override
     public IPage<TblTableTemplate> queryPageByEntityDto(IPage<TblTableTemplate> page, TableTemplateSearchPageDto entityDto) {
@@ -59,7 +55,7 @@ public class TblTableTemplateServiceImpl extends ServiceImpl<TblTableTemplateMap
     @Override
     public void delteById(String id) {
         TblTableTemplate entity = this.baseMapper.selectById(id);
-        tblFileTemplateMapper.delete(buildTblFileTempalteLambdaUpdateWrapper(entity.getCode()));
+        tblFieldTemplateMapper.delete(buildTblFileTempalteLambdaUpdateWrapper(entity.getCode()));
         this.removeById(id);
     }
 
@@ -68,9 +64,9 @@ public class TblTableTemplateServiceImpl extends ServiceImpl<TblTableTemplateMap
         return this.baseMapper.selectList(buildLambdaQueryWrapper(searchDto));
     }
 
-    public LambdaUpdateWrapper<TblFileTemplate> buildTblFileTempalteLambdaUpdateWrapper(String code){
-        LambdaUpdateWrapper<TblFileTemplate> lambdaUpdateWrapper = new LambdaUpdateWrapper<TblFileTemplate>();
-        lambdaUpdateWrapper.eq(TblFileTemplate::getTableId, code);
+    public LambdaUpdateWrapper<TblFieldTemplate> buildTblFileTempalteLambdaUpdateWrapper(String code){
+        LambdaUpdateWrapper<TblFieldTemplate> lambdaUpdateWrapper = new LambdaUpdateWrapper<TblFieldTemplate>();
+        lambdaUpdateWrapper.eq(TblFieldTemplate::getTableId, code);
         return lambdaUpdateWrapper;
     }
 
@@ -93,7 +89,7 @@ public class TblTableTemplateServiceImpl extends ServiceImpl<TblTableTemplateMap
         if(entity == null){
             entity = new TblTableTemplate();
             entity.setCreatedTime(dateService.getLocalDateTimeNow());
-            entity.setId(entity.getId());
+            entity.setId(saveDto.getId());
         }
         entity.setName(saveDto.getName());
         entity.setCode(saveDto.getCode());

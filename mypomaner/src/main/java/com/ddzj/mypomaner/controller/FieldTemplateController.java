@@ -1,13 +1,13 @@
 package com.ddzj.mypomaner.controller;
 
-import com.ddzj.mypomaner.dto.FileTemplateListDto;
-import com.ddzj.mypomaner.dto.FileTemplateSaveDto;
-import com.ddzj.mypomaner.dto.FileTemplateSearchDto;
+import com.ddzj.mypomaner.dto.FieldTemplateSaveDto;
+import com.ddzj.mypomaner.dto.FieldTemplateListDto;
+import com.ddzj.mypomaner.dto.FieldTemplateSearchDto;
 import com.ddzj.mypomaner.dto.SelectDto;
-import com.ddzj.mypomaner.dto.converterdto.FileTemplateDtoConverter;
-import com.ddzj.mypomaner.entity.TblFileTemplate;
+import com.ddzj.mypomaner.dto.converterdto.FieldTemplateDtoConverter;
+import com.ddzj.mypomaner.entity.TblFieldTemplate;
 import com.ddzj.mypomaner.entity.TblTableTemplate;
-import com.ddzj.mypomaner.service.ITblFileTemplateService;
+import com.ddzj.mypomaner.service.ITblFieldTemplateService;
 import com.ddzj.mypomaner.service.ITblTableTemplateService;
 import com.ddzj.mypomaner.service.common.ISelectDictDataCommonService;
 import com.ddzj.mypomaner.vo.AjaxResultVo;
@@ -29,15 +29,15 @@ import java.util.stream.Collectors;
  * @since 2023-12-23
  */
 @RestController
-@RequestMapping("/api/fileTemplate")
-public class FileTemplateController {
+@RequestMapping("/api/fieldTemplate")
+public class FieldTemplateController {
 
     @Autowired
     private ISelectDictDataCommonService iSelectDictDataCommonService;
     @Autowired
-    private ITblFileTemplateService iTblFileTemplateService;
+    private ITblFieldTemplateService iTblFieldTemplateService;
     @Autowired
-    private FileTemplateDtoConverter fileTemplateDtoConverter;
+    private FieldTemplateDtoConverter fieldTemplateDtoConverter;
     @Autowired
     private ITblTableTemplateService iTblTableTemplateService;
 
@@ -47,7 +47,7 @@ public class FileTemplateController {
      */
     @GetMapping("/initsearch")
     public AjaxResultVo initsearch(){
-        FileTemplateListDto listDto = new FileTemplateListDto();
+        FieldTemplateListDto listDto = new FieldTemplateListDto();
         List<TblTableTemplate> tableTemplates = iTblTableTemplateService.list();
         tableTemplates = tableTemplates.stream()
                 .filter(a-> BooleanUtils.isTrue(a.getEnabled()))
@@ -66,13 +66,13 @@ public class FileTemplateController {
      * @returnÂ
      */
     @PostMapping("/restList")
-    public AjaxResultVo restList(@RequestBody FileTemplateSearchDto searchDto){
-        List<TblFileTemplate> tblFileTemplateList = iTblFileTemplateService.findBySearchDto(searchDto);
-        List<FileTemplateSaveDto> fileTemplateSaveDtos = Lists.newArrayList();
-        if(CollectionUtils.isNotEmpty(tblFileTemplateList)){
-            fileTemplateSaveDtos = fileTemplateDtoConverter.entityToSaveDto(tblFileTemplateList);
+    public AjaxResultVo restList(@RequestBody FieldTemplateSearchDto searchDto){
+        List<TblFieldTemplate> tblFieldTemplateList = iTblFieldTemplateService.findBySearchDto(searchDto);
+        List<FieldTemplateSaveDto> fieldTemplateSaveDtos = Lists.newArrayList();
+        if(CollectionUtils.isNotEmpty(tblFieldTemplateList)){
+            fieldTemplateSaveDtos = fieldTemplateDtoConverter.entityToSaveDto(tblFieldTemplateList);
         }
-        return AjaxResultVo.ok(fileTemplateSaveDtos);
+        return AjaxResultVo.ok(fieldTemplateSaveDtos);
     }
 
     /**
@@ -80,9 +80,9 @@ public class FileTemplateController {
      * @return
      */
     @PostMapping("/saveList")
-    public AjaxResultVo saveList(@RequestBody List<FileTemplateSaveDto> entitys){
-        List<TblFileTemplate> tblFileTemplateList = iTblFileTemplateService.saveDtoList(entitys);
-        if(tblFileTemplateList != null){
+    public AjaxResultVo saveList(@RequestBody List<FieldTemplateSaveDto> entitys){
+        List<TblFieldTemplate> tblFieldTemplateList = iTblFieldTemplateService.saveDtoList(entitys);
+        if(tblFieldTemplateList != null){
             return AjaxResultVo.ok("保存成功");
         }
         return AjaxResultVo.error("保存失败");

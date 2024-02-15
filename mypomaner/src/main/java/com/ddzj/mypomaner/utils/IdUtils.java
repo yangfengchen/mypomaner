@@ -7,8 +7,9 @@ package com.ddzj.mypomaner.utils;
  * @Version:1.0
  **/
 public class IdUtils {
+
+    private static SnowflakeIdWorker snowflakeIdWorker = new SnowflakeIdWorker();
     public synchronized static String getSnowflakeIdWorkerId(){
-        SnowflakeIdWorker snowflakeIdWorker = new SnowflakeIdWorker();
         return String.valueOf(snowflakeIdWorker.nextId());
     }
 }

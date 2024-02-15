@@ -23,6 +23,8 @@ public class TblProjectInfo extends AbstractEntity {
 
     private String projectZnName;
 
+    private String packageName;
+
     public String getProjectName() {
         return projectName;
     }
@@ -47,6 +49,8 @@ public class TblProjectInfo extends AbstractEntity {
         this.projectZnName = projectZnName;
     }
 
+
+
     @Override
     public String toString() {
         return "TblProjectInfo{" +
@@ -60,6 +64,25 @@ public class TblProjectInfo extends AbstractEntity {
             ", projectName = " + projectName +
             ", projectCode = " + projectCode +
             ", projectZnName = " + projectZnName +
+            ", packageName = " + packageName +
         "}";
+    }
+
+    /**
+     * 获取
+     *
+     * @return packageName
+     */
+    public String getPackageName() {
+        return this.packageName;
+    }
+
+    /**
+     * 设置
+     *
+     * @param packageName
+     */
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 }

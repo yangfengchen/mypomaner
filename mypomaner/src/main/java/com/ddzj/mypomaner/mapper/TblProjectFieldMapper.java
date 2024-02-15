@@ -1,6 +1,6 @@
 package com.ddzj.mypomaner.mapper;
 
-import com.ddzj.mypomaner.entity.TblProjectFiled;
+import com.ddzj.mypomaner.entity.TblProjectField;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author yzb
  * @since 2023-12-23
  */
-public interface TblProjectFiledMapper extends BaseMapper<TblProjectFiled> {
+public interface TblProjectFieldMapper extends BaseMapper<TblProjectField> {
 
 }

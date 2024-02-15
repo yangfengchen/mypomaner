@@ -3,8 +3,12 @@ import HomeView from '../views/HomeView.vue'
 import dictDataList from '@/views/dictData/list.vue'
 import dictTypeList from '@/views/dictType/list.vue'
 import fieldConfigList from '@/views/fieldConfig/list.vue'
-import fileTemplateList from '@/views/fileTemplate/list.vue'
+import fieldTemplateList from '@/views/fieldTemplate/list.vue'
 import tableTemplateList from '@/views/tableTemplate/list.vue'
+import projectInfoList from '@/views/projectInfo/list.vue'
+import projectTableList from '@/views/projectTable/list.vue'
+import projectTableAdd from '@/views/projectTable/add.vue'
+import projectTableEdit from '@/views/projectTable/edit.vue'
 
 
 const router = createRouter({
@@ -44,15 +48,36 @@ const router = createRouter({
       component: fieldConfigList
     },
     {
-      path: '/fileTemplateList',
-      name: 'fileTemplateList',
-      component: fileTemplateList
+      path: '/fieldTemplateList',
+      name: 'fieldTemplateList',
+      component: fieldTemplateList
     },
     {
       path: '/tableTemplateList',
       name: 'tableTemplateList',
       component: tableTemplateList
+    },
+    {
+      path: '/projectInfoList',
+      name: 'projectInfoList',
+      component: projectInfoList
+    },
+    {
+      path: '/projectTableList',
+      name: 'projectTableList',
+      component: projectTableList
+    },
+    {
+      path: '/projectTableAdd',
+      name: 'projectTableAdd',
+      component: projectTableAdd
+    },
+    {
+      path: '/projectTableEdit',
+      name: 'projectTableEdit',
+      component: projectTableEdit
     }
+    
   ]
 })
 

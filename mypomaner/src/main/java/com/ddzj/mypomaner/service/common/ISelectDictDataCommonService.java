@@ -19,6 +19,9 @@ public interface ISelectDictDataCommonService {
     //数据库字段类型
     String FIELD_DB_TYPE = "fieldDbType";
 
+    //技术框架类型类型
+    String CODE_FRAME_TYPE = "codeFrameType";
+
     /**
      * 获取数据库类型 list
      * @return
@@ -43,4 +46,16 @@ public interface ISelectDictDataCommonService {
      * @return
      */
     Map<String, String> getFieldDbTypeSelectMap();
+
+    /**
+     * 获取技术框架类型
+     * @return
+     */
+    List<SelectDto> getCodeFrameTypeSelectList();
+
+    /**
+     * 获取技术框架类型
+     * @return
+     */
+    Map<String, String> getCodeFrameTypeSelectMap();
 }

@@ -1,6 +1,5 @@
 package com.ddzj.mypomaner.vo.convertervo;
 
-import com.ddzj.mypomaner.entity.TblFieldConfig;
 import com.ddzj.mypomaner.entity.TblTableTemplate;
 import com.ddzj.mypomaner.vo.TableTemplateListVo;
 import org.mapstruct.Mapper;

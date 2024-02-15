@@ -8,7 +8,7 @@ import java.util.List;
  * @Description:
  * @Version:1.0
  **/
-public class FileTemplateListDto {
+public class FieldTemplateListDto {
     // 表类型
     private List<SelectDto> tableTemplateList;
 

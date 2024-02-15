@@ -1,25 +1,13 @@
-package com.ddzj.mypomaner.entity;
-
-import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
+package com.ddzj.mypomaner.vo;
 
 /**
- * <p>
- * 项目表管理;
- * </p>
- *
- * @author yzb
- * @since 2023-12-23
- */
-@TableName("TBL_PROJECT_TABLE")
-public class TblProjectTable extends AbstractEntity  {
-
-    private static final long serialVersionUID = 1L;
-
-    private String prefixName;
-
+ * @Author:yangzibo
+ * @CreateTime:2024-02-15 20:01
+ * @Description:
+ * @Version:1.0
+ **/
+public class ProjectTableListVo {
+    private String id;
     private String name;
 
     private Boolean enabled;
@@ -31,55 +19,76 @@ public class TblProjectTable extends AbstractEntity  {
 
     private String packageName;
 
-    public String getPrefixName() {
-        return prefixName;
+    /**
+     * 获取
+     *
+     * @return id
+     */
+    public String getId() {
+        return this.id;
     }
 
-    public void setPrefixName(String prefixName) {
-        this.prefixName = prefixName;
+    /**
+     * 设置
+     *
+     * @param id
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 
+    /**
+     * 获取
+     *
+     * @return name
+     */
     public String getName() {
-        return name;
+        return this.name;
     }
 
+    /**
+     * 设置
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * 获取
+     *
+     * @return enabled
+     */
     public Boolean getEnabled() {
-        return enabled;
+        return this.enabled;
     }
 
+    /**
+     * 设置
+     *
+     * @param enabled
+     */
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 
+    /**
+     * 获取
+     *
+     * @return projectCode
+     */
     public String getProjectCode() {
-        return projectCode;
+        return this.projectCode;
     }
 
+    /**
+     * 设置
+     *
+     * @param projectCode
+     */
     public void setProjectCode(String projectCode) {
         this.projectCode = projectCode;
-    }
-
-    @Override
-    public String toString() {
-        return "TblProjectTable{" +
-            "id = " + id +
-            ", tenantId = " + tenantId +
-            ", revision = " + revision +
-            ", createdBy = " + createdBy +
-            ", createdTime = " + createdTime +
-            ", updatedBy = " + updatedBy +
-            ", updatedTime = " + updatedTime +
-            ", prefixName = " + prefixName +
-            ", name = " + name +
-            ", enabled = " + enabled +
-            ", projectCode = " + projectCode +
-            ", znName = " + znName +
-            ", codeName = " + codeName +
-        "}";
     }
 
     /**

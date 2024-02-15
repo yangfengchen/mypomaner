@@ -6,8 +6,9 @@ package com.ddzj.mypomaner.dto;
  * @Description:
  * @Version:1.0
  **/
-public class FileTemplateSearchDto {
+public class FieldTemplateSearchDto {
     private String tableId;
+    private Boolean enabled;
 
 
     /**
@@ -26,5 +27,23 @@ public class FileTemplateSearchDto {
      */
     public void setTableId(String tableId) {
         this.tableId = tableId;
+    }
+
+    /**
+     * 获取
+     *
+     * @return enabled
+     */
+    public Boolean getEnabled() {
+        return this.enabled;
+    }
+
+    /**
+     * 设置
+     *
+     * @param enabled
+     */
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }

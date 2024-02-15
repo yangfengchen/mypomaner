@@ -19,45 +19,45 @@
     </lay-row>
     <lay-row>
       <lay-table :columns="tableThead" :data-source="tableTbody">
-        <template #fileCode="{ row }">
-          <lay-input v-model="row.fileCode" />
+        <template #fieldCode="{ row }">
+          <lay-input v-model="row.fieldCode" />
         </template>
-        <template #fileName="{ row }">
-          <lay-input v-model="row.fileName" />
+        <template #fieldName="{ row }">
+          <lay-input v-model="row.fieldName" />
         </template>
-        <template #filePrimary="{ row }">
-          <lay-switch v-model="row.filePrimary"></lay-switch>
+        <template #fieldPrimary="{ row }">
+          <lay-switch v-model="row.fieldPrimary"></lay-switch>
         </template>
-        <template #fileNull="{ row }">
-          <lay-switch v-model="row.fileNull"></lay-switch>
+        <template #fieldNull="{ row }">
+          <lay-switch v-model="row.fieldNull"></lay-switch>
         </template>
-        <template #fileAuto="{ row }">
-          <lay-switch v-model="row.fileAuto"></lay-switch>
+        <template #fieldAuto="{ row }">
+          <lay-switch v-model="row.fieldAuto"></lay-switch>
         </template>
-        <template #fileDataType="{ row }">
-          <lay-select v-model="row.fileDataType">
+        <template #fieldDataType="{ row }">
+          <lay-select v-model="row.fieldDataType">
             <template v-for="item in fieldDbTypeList">
               <lay-select-option :value="item.value" :label="item.label" />
             </template>
           </lay-select>
         </template>
-        <template #fileLen="{ row }">
-          <lay-input v-model="row.fileLen" />
+        <template #fieldLen="{ row }">
+          <lay-input v-model="row.fieldLen" />
         </template>
-        <template #fileDecimal="{ row }">
-          <lay-input v-model="row.fileDecimal" />
+        <template #fieldDecimal="{ row }">
+          <lay-input v-model="row.fieldDecimal" />
         </template>
-        <template #fileDec="{ row }">
-          <lay-input v-model="row.fileDec" />
+        <template #fieldDec="{ row }">
+          <lay-input v-model="row.fieldDec" />
         </template>
-        <template #fileDefaultVal="{ row }">
-          <lay-input v-model="row.fileDefaultVal" />
+        <template #fieldDefaultVal="{ row }">
+          <lay-input v-model="row.fieldDefaultVal" />
         </template>
-        <template #fileDtoStatus="{ row }">
-          <lay-switch v-model="row.fileDtoStatus"></lay-switch>
+        <template #fieldDtoStatus="{ row }">
+          <lay-switch v-model="row.fieldDtoStatus"></lay-switch>
         </template>
-        <template #fileVoStatus="{ row }">
-          <lay-switch v-model="row.fileVoStatus"></lay-switch>
+        <template #fieldVoStatus="{ row }">
+          <lay-switch v-model="row.fieldVoStatus"></lay-switch>
         </template>
         <template #enabled="{ row }">
           <lay-switch v-model="row.enabled"></lay-switch>
@@ -73,7 +73,7 @@
 <script setup>
 import { reactive, onBeforeMount, onMounted, ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { getinitsearch, getListData, saveListData } from '@/api/fileTemplate/fileTemplateApi'
+import { getinitsearch, getListData, saveListData } from '@/api/fieldTemplate/fieldTemplateApi'
 import { getIdByType } from '@/api/idgenerate/idgenerateApi'
 import { layerSuccess, layerError } from '@/api/messageBuilder'
 import { layer } from '@layui/layui-vue'
@@ -118,74 +118,74 @@ let tableThead = [
   {
     title: "字段代码",
     width: "200px",
-    key: "fileCode",
-    customSlot: "fileCode"
+    key: "fieldCode",
+    customSlot: "fieldCode"
   },
   {
     title: "字段名称",
     width: "200px",
-    key: "fileName",
-    customSlot: "fileName"
+    key: "fieldName",
+    customSlot: "fieldName"
   },
   {
     title: "字段是否主键",
     width: "200px",
-    key: "filePrimary",
-    customSlot: "filePrimary"
+    key: "fieldPrimary",
+    customSlot: "fieldPrimary"
   },
   {
     title: "字段是否空",
     width: "200px",
-    key: "fileNull",
-    customSlot: "fileNull"
+    key: "fieldNull",
+    customSlot: "fieldNull"
   },
   {
     title: "字段是否自增",
     width: "200px",
-    key: "fileAuto",
-    customSlot: "fileAuto"
+    key: "fieldAuto",
+    customSlot: "fieldAuto"
   },
   {
     title: "字段数据类型",
     width: "200px",
-    key: "fileDataType",
-    customSlot: "fileDataType"
+    key: "fieldDataType",
+    customSlot: "fieldDataType"
   },
   {
     title: "字段长度",
     width: "200px",
-    key: "fileLen",
-    customSlot: "fileLen"
+    key: "fieldLen",
+    customSlot: "fieldLen"
   },
   {
     title: "字段小数位",
     width: "200px",
-    key: "fileDecimal",
-    customSlot: "fileDecimal"
+    key: "fieldDecimal",
+    customSlot: "fieldDecimal"
   },
   {
     title: "字段说明",
     width: "200px",
-    key: "fileDec",
-    customSlot: "fileDec"
+    key: "fieldDec",
+    customSlot: "fieldDec"
   },
   {
     title: "字段默认值",
     width: "200px",
-    key: "fileDefaultVal",
-    customSlot: "fileDefaultVal"
+    key: "fieldDefaultVal",
+    customSlot: "fieldDefaultVal"
   },
   {
     title: "字段dto",
     width: "200px",
-    key: "fileDtoStatus",
-    customSlot: "fileDtoStatus"
+    key: "fieldDtoStatus",
+    customSlot: "fieldDtoStatus"
   },
   {
     title: "字段vo",
     width: "200px",
-    key: "fileVoStatus",
-    customSlot: "fileVoStatus"
+    key: "fieldVoStatus",
+    customSlot: "fieldVoStatus"
   },
   {
     title: "是否启用",
@@ -199,26 +199,26 @@ let tableThead = [
 
 function addData ()
 {
-  getIdByType( 'fileTemplate' ).then( data =>
+  getIdByType( 'fieldTemplate' ).then( data =>
   {
     let _obj = {
       id: data,
-      fileCode: '',
-      fileName: '',
-      filePrimary: false,
-      fileNull: true,
-      fileAuto: false,
-      fileType: '',
-      fileDataType: '',
-      fileLen: '',
-      fileDecimal: '',
-      fileDec: '',
-      fileDefaultVal: '',
-      fileHtmlType: '',
+      fieldCode: '',
+      fieldName: '',
+      fieldPrimary: false,
+      fieldNull: true,
+      fieldAuto: false,
+      fieldType: '',
+      fieldDataType: '',
+      fieldLen: '',
+      fieldDecimal: '',
+      fieldDec: '',
+      fieldDefaultVal: '',
+      fieldHtmlType: '',
       tableId: selectTableTemplateCode,
       enabled: true,
-      fileDtoStatus: false,
-      fileVoStatus: false
+      fieldDtoStatus: false,
+      fieldVoStatus: false
     }
     tableTbody.value.push( _obj )
   } )

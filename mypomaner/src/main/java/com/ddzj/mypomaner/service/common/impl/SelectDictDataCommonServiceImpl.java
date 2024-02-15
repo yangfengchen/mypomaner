@@ -48,6 +48,16 @@ public class SelectDictDataCommonServiceImpl implements ISelectDictDataCommonSer
         return buildSelectMap(FIELD_DB_TYPE);
     }
 
+    @Override
+    public List<SelectDto> getCodeFrameTypeSelectList() {
+        return findByDictCode(CODE_FRAME_TYPE);
+    }
+
+    @Override
+    public Map<String, String> getCodeFrameTypeSelectMap() {
+        return buildSelectMap(CODE_FRAME_TYPE);
+    }
+
     private Map<String, String> buildSelectMap(String dictCode){
         List<SelectDto> selectDtoList = findByDictCode(dictCode);
         return selectDtoList.stream()
