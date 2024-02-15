@@ -6,6 +6,8 @@ import com.ddzj.mypomaner.dto.TableTemplateSearchPageDto;
 import com.ddzj.mypomaner.entity.TblTableTemplate;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 表模板; 服务类
@@ -43,4 +45,11 @@ public interface ITblTableTemplateService extends IService<TblTableTemplate> {
      * @param id
      */
     void delteById(String id);
+
+    /**
+     * 查询获取所有模板表
+     * @param searchDto
+     * @return
+     */
+    List<TblTableTemplate> findListBySearchDto(TableTemplateSearchPageDto searchDto);
 }

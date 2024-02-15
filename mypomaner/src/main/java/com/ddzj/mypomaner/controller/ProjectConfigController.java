@@ -5,14 +5,14 @@ import org.springframework.stereotype.Controller;
 
 /**
  * <p>
- * 项目字段表; 前端控制器
+ * 项目配置; 前端控制器
  * </p>
  *
  * @author yzb
  * @since 2023-12-23
  */
 @Controller
-@RequestMapping("/tblProjectFiled")
-public class TblProjectFiledController {
+@RequestMapping("/api/projectConfig")
+public class ProjectConfigController {
 
 }

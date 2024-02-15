@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
  * @since 2023-12-23
  */
 @Controller
-@RequestMapping("/tblProjectTable")
-public class TblProjectTableController {
+@RequestMapping("/api/projectTable")
+public class ProjectTableController {
 
 }

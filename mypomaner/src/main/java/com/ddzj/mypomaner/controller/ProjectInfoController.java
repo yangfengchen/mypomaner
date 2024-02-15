@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
  * @since 2023-12-23
  */
 @Controller
-@RequestMapping("/tblProjectInfo")
-public class TblProjectInfoController {
+@RequestMapping("/api/projectInfo")
+public class ProjectInfoController {
 
 }

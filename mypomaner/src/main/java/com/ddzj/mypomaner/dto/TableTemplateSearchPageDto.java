@@ -10,6 +10,8 @@ public class TableTemplateSearchPageDto extends PageSearchDto {
     private String name;
     private String code;
 
+    private Boolean enabled;
+
     /**
      * 获取
      *
@@ -44,5 +46,23 @@ public class TableTemplateSearchPageDto extends PageSearchDto {
      */
     public void setCode(String code) {
         this.code = code;
+    }
+
+    /**
+     * 获取
+     *
+     * @return enabled
+     */
+    public Boolean getEnabled() {
+        return this.enabled;
+    }
+
+    /**
+     * 设置
+     *
+     * @param enabled
+     */
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }

@@ -20,6 +20,7 @@
                     {{ row.enabled == true ? '是':'否' }}
                 </template>
                 <template v-slot:operator="{ row }">
+                    <lay-button @click="editViewOp($event, row)">编辑</lay-button>
                     <lay-button @click="removeOp($event, row)">删除</lay-button>
                 </template>
             </lay-table>
@@ -117,6 +118,12 @@ const removeOp = ( e, row ) =>
         layerSuccess( data )
         loadData()
     } )
+}
+
+const editViewRef = ref( null )
+
+const editViewOp = (e, row) => {
+    editViewRef.value.ajaxViewData( row.id )
 }
 
 </script>

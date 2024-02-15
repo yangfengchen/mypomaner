@@ -2,6 +2,7 @@ package com.ddzj.mypomaner.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.ddzj.mypomaner.dto.FileTemplateSaveDto;
 import com.ddzj.mypomaner.dto.FileTemplateSearchDto;
 import com.ddzj.mypomaner.dto.TableTemplateSearchPageDto;
@@ -53,12 +54,18 @@ public class TblFileTemplateServiceImpl extends ServiceImpl<TblFileTemplateMappe
         if(CollectionUtils.isEmpty(entitys)){
             return Lists.newArrayList();
         }
-        this.remove(new QueryWrapper<TblFileTemplate>());
+        this.remove(buildTblFileTempalteLambdaUpdateWrapper(entitys.get(0).getTableId()));
         List<TblFileTemplate> tblFileTemplateList = entitys.stream().map(entity->{
             return buildTblFileTemplate(entity);
         }).collect(Collectors.toList());
         this.saveOrUpdateBatch(tblFileTemplateList);
         return tblFileTemplateList;
+    }
+
+    public LambdaUpdateWrapper<TblFileTemplate> buildTblFileTempalteLambdaUpdateWrapper(String code){
+        LambdaUpdateWrapper<TblFileTemplate> lambdaUpdateWrapper = new LambdaUpdateWrapper<TblFileTemplate>();
+        lambdaUpdateWrapper.eq(TblFileTemplate::getTableId, code);
+        return lambdaUpdateWrapper;
     }
 
     public TblFileTemplate buildTblFileTemplate(FileTemplateSaveDto fileTemplateSaveDto){

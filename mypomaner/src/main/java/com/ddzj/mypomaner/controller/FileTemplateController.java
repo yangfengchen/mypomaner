@@ -13,10 +13,12 @@ import com.ddzj.mypomaner.service.common.ISelectDictDataCommonService;
 import com.ddzj.mypomaner.vo.AjaxResultVo;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -47,6 +49,9 @@ public class FileTemplateController {
     public AjaxResultVo initsearch(){
         FileTemplateListDto listDto = new FileTemplateListDto();
         List<TblTableTemplate> tableTemplates = iTblTableTemplateService.list();
+        tableTemplates = tableTemplates.stream()
+                .filter(a-> BooleanUtils.isTrue(a.getEnabled()))
+                .collect(Collectors.toList());
         List<SelectDto> tableTemplateList = Lists.newArrayList();
         for(TblTableTemplate tblTableTemplate : tableTemplates){
             tableTemplateList.add(new SelectDto(tblTableTemplate.getName(), tblTableTemplate.getCode()));

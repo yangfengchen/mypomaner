@@ -245,7 +245,7 @@ const toHome = () =>
 
 const changeTableTemplateCode = () =>
 {
-
+loadData();
 }
 
 
