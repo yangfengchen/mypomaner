@@ -48,6 +48,10 @@ public class TblProjectFiled extends AbstractEntity  {
 
     private String projectCode;
 
+    private Boolean fileDtoStatus;
+
+    private Boolean fileVoStatus;
+
     public String getFiledCode() {
         return filedCode;
     }
@@ -193,6 +197,44 @@ public class TblProjectFiled extends AbstractEntity  {
             ", tableId = " + tableId +
             ", enabled = " + enabled +
             ", projectCode = " + projectCode +
+            ", fileDtoStatus = " + fileDtoStatus +
+            ", fileVoStatus = " + fileVoStatus +
         "}";
+    }
+
+    /**
+     * 获取
+     *
+     * @return fileDtoStatus
+     */
+    public Boolean getFileDtoStatus() {
+        return this.fileDtoStatus;
+    }
+
+    /**
+     * 设置
+     *
+     * @param fileDtoStatus
+     */
+    public void setFileDtoStatus(Boolean fileDtoStatus) {
+        this.fileDtoStatus = fileDtoStatus;
+    }
+
+    /**
+     * 获取
+     *
+     * @return fileVoStatus
+     */
+    public Boolean getFileVoStatus() {
+        return this.fileVoStatus;
+    }
+
+    /**
+     * 设置
+     *
+     * @param fileVoStatus
+     */
+    public void setFileVoStatus(Boolean fileVoStatus) {
+        this.fileVoStatus = fileVoStatus;
     }
 }

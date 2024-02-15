@@ -1,11 +1,13 @@
 package com.ddzj.mypomaner.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ddzj.mypomaner.dto.DictTypeSearchPageDto;
 import com.ddzj.mypomaner.dto.FieldConfigSaveDto;
 import com.ddzj.mypomaner.dto.FieldConfigSearchPageDto;
+import com.ddzj.mypomaner.entity.TblDictData;
 import com.ddzj.mypomaner.entity.TblDictType;
 import com.ddzj.mypomaner.entity.TblFieldConfig;
 import com.ddzj.mypomaner.mapper.TblFieldConfigMapper;
@@ -59,10 +61,8 @@ public class TblFieldConfigServiceImpl extends ServiceImpl<TblFieldConfigMapper,
     }
 
     @Override
-    public List<TblFieldConfig> findByDatabaseType(String databaseType) {
-        FieldConfigSearchPageDto fieldConfigSearchPageDto = new FieldConfigSearchPageDto();
-        fieldConfigSearchPageDto.setDatabaseType(databaseType);
-        return this.list(buildLambdaQueryWrapper(fieldConfigSearchPageDto));
+    public List<TblFieldConfig> findByDatabaseType(FieldConfigSearchPageDto entityDto) {
+        return this.list(buildLambdaQueryWrapper(entityDto));
     }
 
     @Override
@@ -70,10 +70,12 @@ public class TblFieldConfigServiceImpl extends ServiceImpl<TblFieldConfigMapper,
         if(CollectionUtils.isEmpty(entitys)){
             return Lists.newArrayList();
         }
+        String databaseType = entitys.get(0).getDatabaseType();
+        this.removeByDatabaseType(databaseType);
         List<TblFieldConfig> tblFieldConfigs = entitys.stream().map(entity->{
             return buildTblFieldConfig(entity);
         }).collect(Collectors.toList());
-        this.saveBatch(tblFieldConfigs);
+        this.saveOrUpdateBatch(tblFieldConfigs);
         return tblFieldConfigs;
     }
 
@@ -103,5 +105,9 @@ public class TblFieldConfigServiceImpl extends ServiceImpl<TblFieldConfigMapper,
         tblFieldConfig.setFieldDefDecimal(entity.getFieldDefDecimal());
         tblFieldConfig.setUpdatedTime(dateService.getLocalDateTimeNow());
         return tblFieldConfig;
+    }
+
+    public void removeByDatabaseType(String databaseType){
+        this.remove(new QueryWrapper<TblFieldConfig>().eq("database_type", databaseType));
     }
 }

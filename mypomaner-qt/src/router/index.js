@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import dictDataList from '@/views/dictData/list.vue'
 import dictTypeList from '@/views/dictType/list.vue'
+import fieldConfigList from '@/views/fieldConfig/list.vue'
+import fileTemplateList from '@/views/fileTemplate/list.vue'
 
 
 const router = createRouter({
@@ -29,6 +31,21 @@ const router = createRouter({
       path: '/dictTypeList',
       name: 'disctTypeList',
       component: dictTypeList
+    },
+    {
+      path: '/dictTypeList',
+      name: 'disctTypeList',
+      component: dictTypeList
+    },
+    {
+      path: '/fieldConfigList',
+      name: 'fieldConfigList',
+      component: fieldConfigList
+    },
+    {
+      path: '/fileTemplateList',
+      name: 'fileTemplateList',
+      component: fileTemplateList
     }
   ]
 })

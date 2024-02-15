@@ -13,6 +13,7 @@ import com.ddzj.mypomaner.vo.DictTypeListVo;
 import com.ddzj.mypomaner.vo.FieldConfigListVo;
 import com.ddzj.mypomaner.vo.PageListDto;
 import com.ddzj.mypomaner.vo.convertervo.FieldConfigVoConverter;
+import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ import java.util.Map;
  * @since 2023-12-23
  */
 @RestController
-@RequestMapping("/fieldConfig")
+@RequestMapping("/api/fieldConfig")
 public class FieldConfigController {
 
     @Autowired
@@ -47,27 +48,27 @@ public class FieldConfigController {
      */
     @GetMapping("/initsearch")
     public AjaxResultVo initsearch(){
-        return AjaxResultVo.ok("");
+        FieldConfigListDto fieldConfigListDto = new FieldConfigListDto();
+        fieldConfigListDto.setDbList(iSelectDictDataCommonService.getDbTypeSelectList());
+        fieldConfigListDto.setFieldDbTypeList(iSelectDictDataCommonService.getFieldDbTypeSelectList());
+        return AjaxResultVo.ok(fieldConfigListDto);
     }
 
-    @PostMapping("/rest")
-    public AjaxResultVo rest(@RequestBody FieldConfigSearchPageDto entityDto){
-        Page<TblFieldConfig> entityPage = new Page<>(entityDto.getCurrent(), entityDto.getPageSize());
-        IPage<TblFieldConfig> entityIpage = iTblFieldConfigService.queryPageByEntityDto(entityPage, entityDto);
-        PageListDto<FieldConfigListVo> resultPage = new PageListDto<FieldConfigListVo>(entityIpage);
-        if(CollectionUtils.isNotEmpty(entityIpage.getRecords())){
-            List<FieldConfigListVo> fieldConfigListVoList = new ArrayList<>(resultPage.getResults().size());
+    @PostMapping("/restList")
+    public AjaxResultVo restList(@RequestBody FieldConfigSearchPageDto entityDto){
+        List<TblFieldConfig> entityIpage = iTblFieldConfigService.findByDatabaseType(entityDto);
+        List<FieldConfigListVo> fieldConfigListVoList = Lists.newArrayList();
+        if(CollectionUtils.isNotEmpty(entityIpage)){
             Map<String, String> dbTypeMap = iSelectDictDataCommonService.getDbTypeSelectMap();
             Map<String, String> fieldDbTypeMap = iSelectDictDataCommonService.getFieldDbTypeSelectMap();
-            for(TblFieldConfig entity : entityIpage.getRecords()){
+            for(TblFieldConfig entity : entityIpage){
                 FieldConfigListVo entityVo = fieldConfigVoConverter.tblFieldConfigToFieldConfigListVo(entity);
                 entityVo.setFieldDbTypeName(dbTypeMap.get(entityVo.getFieldDbType()));
                 entityVo.setFieldDbTypeName(fieldDbTypeMap.get(entityVo.getFieldDbType()));
                 fieldConfigListVoList.add(entityVo);
             }
-            resultPage.setResults(fieldConfigListVoList);
         }
-        return AjaxResultVo.ok(resultPage);
+        return AjaxResultVo.ok(fieldConfigListVoList);
     }
 
     /**
@@ -91,7 +92,10 @@ public class FieldConfigController {
         FieldConfigEditDto fieldConfigEditDto = new FieldConfigEditDto();
         fieldConfigEditDto.setFieldDbTypeList(iSelectDictDataCommonService.getFieldDbTypeSelectList());
         fieldConfigEditDto.setDbList(iSelectDictDataCommonService.getDbTypeSelectList());
-        List<TblFieldConfig> tblFieldConfigs = iTblFieldConfigService.findByDatabaseType(databaseType);
+        FieldConfigSearchPageDto entityDto = new FieldConfigSearchPageDto();
+        entityDto.setDatabaseType(databaseType);
+
+        List<TblFieldConfig> tblFieldConfigs = iTblFieldConfigService.findByDatabaseType(entityDto);
         if(CollectionUtils.isNotEmpty(tblFieldConfigs)){
             fieldConfigEditDto.setFieldConfigSaveDtos(fieldConfigVoConverter.tblFieldConfigToFieldConfigSaveDto(tblFieldConfigs));
         }
@@ -105,7 +109,10 @@ public class FieldConfigController {
      */
     @GetMapping("/editList/{databaseType}")
     public AjaxResultVo edit(@PathVariable String databaseType){
-        List<TblFieldConfig> tblFieldConfigs = iTblFieldConfigService.findByDatabaseType(databaseType);
+        FieldConfigSearchPageDto entityDto = new FieldConfigSearchPageDto();
+        entityDto.setDatabaseType(databaseType);
+
+        List<TblFieldConfig> tblFieldConfigs = iTblFieldConfigService.findByDatabaseType(entityDto);
         FieldConfigEditDto fieldConfigEditDto = new FieldConfigEditDto();
         List<FieldConfigSaveDto> fieldConfigSaveDtos = fieldConfigVoConverter.tblFieldConfigToFieldConfigSaveDto(tblFieldConfigs);
         fieldConfigEditDto.setFieldConfigSaveDtos(fieldConfigSaveDtos);
@@ -119,8 +126,8 @@ public class FieldConfigController {
      * @param entitys
      * @return
      */
-    @PostMapping("/save")
-    public AjaxResultVo save(@RequestBody List<FieldConfigSaveDto> entitys){
+    @PostMapping("/saveList")
+    public AjaxResultVo saveList(@RequestBody List<FieldConfigSaveDto> entitys){
         List<TblFieldConfig> tblFieldConfigs = iTblFieldConfigService.saveDtoList(entitys);
         if(tblFieldConfigs != null){
             return AjaxResultVo.ok("保存成功");

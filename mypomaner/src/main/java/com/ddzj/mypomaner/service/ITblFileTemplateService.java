@@ -1,7 +1,10 @@
 package com.ddzj.mypomaner.service;
 
+import com.ddzj.mypomaner.dto.FileTemplateSaveDto;
 import com.ddzj.mypomaner.entity.TblFileTemplate;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITblFileTemplateService extends IService<TblFileTemplate> {
 
+    /**
+     * 批量保存字段模板表字段
+     * @return
+     */
+    List<TblFileTemplate> saveDtoList(List<FileTemplateSaveDto> entitys);
 }

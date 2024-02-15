@@ -14,8 +14,19 @@ const toDictDataView = () =>
   router.push( { path: '/dictDataList' } )
 }
 
-const toDictTypeView = () =>{
+const toDictTypeView = () =>
+{
   router.push( { path: '/dictTypeList' } )
+}
+
+const toFieldConfigView = () =>
+{
+  router.push({path: '/fieldConfigList'})
+}
+
+const toFileTemplateView = () =>
+{
+  router.push({path: '/fileTemplateList'})
 }
 
 </script>
@@ -33,14 +44,22 @@ const toDictTypeView = () =>{
         <lay-button>标签维护</lay-button>
         <template #content>
           <lay-dropdown-menu>
-            <lay-dropdown-menu-item  @click="toDictTypeView">标签类型</lay-dropdown-menu-item>
+            <lay-dropdown-menu-item @click="toDictTypeView">标签类型</lay-dropdown-menu-item>
             <lay-dropdown-menu-item @click="toDictDataView">标签</lay-dropdown-menu-item>
           </lay-dropdown-menu>
         </template>
       </lay-dropdown>
     </lay-col>
     <lay-col md="6">
-      <lay-button type="default" radius>默认表字段设置</lay-button>
+      <lay-dropdown trigger="hover" updateAtScroll radius>
+        <lay-button type="default" radius>默认表字段设置</lay-button>
+        <template #content>
+          <lay-dropdown-menu>
+            <lay-dropdown-menu-item @click="toFieldConfigView">基础字段配置</lay-dropdown-menu-item>
+            <lay-dropdown-menu-item @click="toFileTemplateView">默认字段配置</lay-dropdown-menu-item>
+          </lay-dropdown-menu>
+        </template>
+      </lay-dropdown>
     </lay-col>
   </lay-row>
   <lay-row space="10">

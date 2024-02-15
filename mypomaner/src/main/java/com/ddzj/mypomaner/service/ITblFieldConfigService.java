@@ -51,10 +51,10 @@ public interface ITblFieldConfigService extends IService<TblFieldConfig> {
 
     /**
      * 根据数据库类型查询所有的字段配置
-     * @param databaseType
+     * @param entityDto
      * @return
      */
-    List<TblFieldConfig> findByDatabaseType(String databaseType);
+    List<TblFieldConfig> findByDatabaseType(FieldConfigSearchPageDto entityDto);
 
     /**
      * 保存字段配置

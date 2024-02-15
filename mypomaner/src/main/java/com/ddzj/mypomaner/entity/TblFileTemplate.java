@@ -23,11 +23,11 @@ public class TblFileTemplate extends AbstractEntity {
 
     private String fileName;
 
-    private Integer filePrimary;
+    private Boolean filePrimary;
 
-    private Integer fileNull;
+    private Boolean fileNull;
 
-    private Integer fileAuto;
+    private Boolean fileAuto;
 
     private String fileType;
 
@@ -45,7 +45,11 @@ public class TblFileTemplate extends AbstractEntity {
 
     private String tableId;
 
-    private Integer enabled;
+    private Boolean enabled;
+
+    private Boolean fileDtoStatus;
+
+    private Boolean fileVoStatus;
 
     public String getFileCode() {
         return fileCode;
@@ -61,30 +65,6 @@ public class TblFileTemplate extends AbstractEntity {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
-    }
-
-    public Integer getFilePrimary() {
-        return filePrimary;
-    }
-
-    public void setFilePrimary(Integer filePrimary) {
-        this.filePrimary = filePrimary;
-    }
-
-    public Integer getFileNull() {
-        return fileNull;
-    }
-
-    public void setFileNull(Integer fileNull) {
-        this.fileNull = fileNull;
-    }
-
-    public Integer getFileAuto() {
-        return fileAuto;
-    }
-
-    public void setFileAuto(Integer fileAuto) {
-        this.fileAuto = fileAuto;
     }
 
     public String getFileType() {
@@ -151,13 +131,6 @@ public class TblFileTemplate extends AbstractEntity {
         this.tableId = tableId;
     }
 
-    public Integer getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Integer enabled) {
-        this.enabled = enabled;
-    }
 
     @Override
     public String toString() {
@@ -183,6 +156,116 @@ public class TblFileTemplate extends AbstractEntity {
             ", fileHtmlType = " + fileHtmlType +
             ", tableId = " + tableId +
             ", enabled = " + enabled +
+            ", fileDtoStatus = " + fileDtoStatus +
+            ", fileVoStatus = " + fileVoStatus +
         "}";
+    }
+
+    /**
+     * 获取
+     *
+     * @return filePrimary
+     */
+    public Boolean getFilePrimary() {
+        return this.filePrimary;
+    }
+
+    /**
+     * 设置
+     *
+     * @param filePrimary
+     */
+    public void setFilePrimary(Boolean filePrimary) {
+        this.filePrimary = filePrimary;
+    }
+
+    /**
+     * 获取
+     *
+     * @return fileNull
+     */
+    public Boolean getFileNull() {
+        return this.fileNull;
+    }
+
+    /**
+     * 设置
+     *
+     * @param fileNull
+     */
+    public void setFileNull(Boolean fileNull) {
+        this.fileNull = fileNull;
+    }
+
+    /**
+     * 获取
+     *
+     * @return fileAuto
+     */
+    public Boolean getFileAuto() {
+        return this.fileAuto;
+    }
+
+    /**
+     * 设置
+     *
+     * @param fileAuto
+     */
+    public void setFileAuto(Boolean fileAuto) {
+        this.fileAuto = fileAuto;
+    }
+
+    /**
+     * 获取
+     *
+     * @return enabled
+     */
+    public Boolean getEnabled() {
+        return this.enabled;
+    }
+
+    /**
+     * 设置
+     *
+     * @param enabled
+     */
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    /**
+     * 获取
+     *
+     * @return fileDtoStatus
+     */
+    public Boolean getFileDtoStatus() {
+        return this.fileDtoStatus;
+    }
+
+    /**
+     * 设置
+     *
+     * @param fileDtoStatus
+     */
+    public void setFileDtoStatus(Boolean fileDtoStatus) {
+        this.fileDtoStatus = fileDtoStatus;
+    }
+
+    /**
+     * 获取
+     *
+     * @return fileVoStatus
+     */
+    public Boolean getFileVoStatus() {
+        return this.fileVoStatus;
+    }
+
+    /**
+     * 设置
+     *
+     * @param fileVoStatus
+     */
+    public void setFileVoStatus(Boolean fileVoStatus) {
+        this.fileVoStatus = fileVoStatus;
     }
 }
