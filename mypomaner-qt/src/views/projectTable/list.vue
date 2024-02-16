@@ -83,7 +83,7 @@ let tableThead = [
     },
     {
         title: "包名",
-        width: "120px",
+        width: "200px",
         key: "packageName"
     },
     {
@@ -93,7 +93,7 @@ let tableThead = [
         customSlot: "enabled"
     },
     {
-        title: "操作", width: "150px", customSlot: "operator", ignoreExport: true
+        title: "操作", width: "300px", customSlot: "operator", ignoreExport: true
     }
 ]
 

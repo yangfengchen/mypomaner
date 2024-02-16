@@ -73,6 +73,13 @@ public class TblProjectTableServiceImpl extends ServiceImpl<TblProjectTableMappe
         this.removeById(id);
     }
 
+    @Override
+    public List<TblProjectTable> findByProjectCode(String projectCode) {
+        ProjectTableSearchPageDto searchPageDto = new ProjectTableSearchPageDto();
+        searchPageDto.setProjectCode(projectCode);
+        return this.baseMapper.selectList(buildLambdaQueryWrapper(searchPageDto));
+    }
+
     public LambdaQueryWrapper<TblProjectTable> buildLambdaQueryWrapper(ProjectTableSearchPageDto searchPageDto){
         LambdaQueryWrapper<TblProjectTable> lambdaQueryWrapper = new LambdaQueryWrapper<TblProjectTable>();
         if(StringUtils.isNotBlank(searchPageDto.getProjectCode())){

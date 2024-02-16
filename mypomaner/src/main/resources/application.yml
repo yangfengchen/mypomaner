@@ -37,4 +37,6 @@ management:
         #include: '*'
       #include: shutdown
 
+codeTemplateFilePath: /mypomaner/src/main/resources/codetemplate
+codeOutPutFilePath: /temp
 

@@ -18,11 +18,13 @@
             </lay-col>
         </lay-row>
         <lay-row>
-            <lay-table :columns="tableThead" :data-source="tableTbody" :page="page" @change="changePage" :loading="loading">
+            <lay-table :columns="tableThead" :data-source="tableTbody" :page="page" @change="changePage"
+             :loading="loading" :ellipsisTooltip="true">
                 <template v-slot:operator="{ row }">
                     <lay-button @click="designViewOp($event, row)">设计表</lay-button>
                     <lay-button @click="editViewOp($event, row)">编辑</lay-button>
                     <lay-button @click="removeOp($event, row)">删除</lay-button>
+                    <lay-button @click="buildCodeOp($event, row)">生成代码</lay-button>
                 </template>
             </lay-table>
         </lay-row>
@@ -34,7 +36,7 @@
 <script setup>
 import { reactive, onBeforeMount, onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { getinitsearch, getData, deleteById } from '@/api/projectInfo/projectInfoApi'
+import { getinitsearch, getData, deleteById, getCodeByProjectFile } from '@/api/projectInfo/projectInfoApi'
 import addView from '@/views/projectInfo/add.vue'
 import editView from '@/views/projectInfo/edit.vue'
 import { layerSuccess, layerError } from '@/api/messageBuilder'
@@ -66,7 +68,7 @@ const toHome = () =>
 
 let tableThead = [
     {
-        title: "项目中文名",
+        title: "项目名称",
         width: "200px",
         key: "projectName"
     },
@@ -92,7 +94,7 @@ let tableThead = [
     },
     {
         title: "数据库类型",
-        width: "120px",
+        width: "100px",
         key: "databaseTypeName"
     },
     {
@@ -100,7 +102,7 @@ let tableThead = [
         width: "120px",
         key: "codeTypeName"
     },{
-        title: "操作", width: "150px", customSlot: "operator", ignoreExport: true
+        title: "操作", width: "350px", customSlot: "operator", ignoreExport: true
     }
 ]
 
@@ -153,6 +155,15 @@ const designViewOp = (e, row) =>{
         }
     });
     window.open(href, '_blank');
+}
+
+const buildCodeOp = (e, row) =>
+{
+    getCodeByProjectFile(row.projectCode).then(data => {
+        if(data == "true"){
+            layerSuccess("生成代码成功")
+        }
+    })
 }
 
 </script>

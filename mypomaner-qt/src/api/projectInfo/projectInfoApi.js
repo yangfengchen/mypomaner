@@ -51,3 +51,10 @@ export function viewData(id){
     })
 }
 
+export function getCodeByProjectFile(projectCode){
+    return request({
+        method: 'get',
+        url: "/api/buildCode/getCodeByProject/" + projectCode
+    })
+}
+

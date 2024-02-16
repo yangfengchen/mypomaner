@@ -1,9 +1,12 @@
 package com.ddzj.mypomaner.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.ddzj.mypomaner.dto.*;
-import com.ddzj.mypomaner.entity.TblProjectTable;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ddzj.mypomaner.dto.ProjectTableSaveDto;
+import com.ddzj.mypomaner.dto.ProjectTableSearchPageDto;
+import com.ddzj.mypomaner.entity.TblProjectTable;
+
+import java.util.List;
 
 /**
  * <p>
@@ -41,4 +44,10 @@ public interface ITblProjectTableService extends IService<TblProjectTable> {
      * @param id
      */
     void delteById(String id);
+
+    /**
+     * 根据项目编码查询所有项目表
+     * @return
+     */
+    List<TblProjectTable> findByProjectCode(String projectCode);
 }
