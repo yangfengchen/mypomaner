@@ -109,7 +109,7 @@ const changePage = ( page ) =>
 const loadData = () =>
 {
     loading.value = true;
-
+    searchDto.projectCode = projectCode.value
     getData( searchDto ).then( data =>
     {
         tableTbody.value = data.results

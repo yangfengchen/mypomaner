@@ -37,6 +37,6 @@ management:
         #include: '*'
       #include: shutdown
 
-codeTemplateFilePath: /mypomaner/src/main/resources/codetemplate
-codeOutPutFilePath: /temp
+codeTemplateFilePath: /Users/zz/Documents/work/studywork/mypomaner/mypomaner/src/main/resources/codetemplate
+codeOutPutFilePath: /Users/zz/Documents/temp/my-scaffold
 
