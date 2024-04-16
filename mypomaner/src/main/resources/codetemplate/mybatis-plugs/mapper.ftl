@@ -22,6 +22,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @author  ${createFileAuth}
 * @history Mender:${createFileAuth}；Date:${createFileDate}；
 */
-public interface ${className!}Repository extends BaseMapper<${className!}>{
+public interface ${className!}Mapper extends BaseMapper<${className!}>{
 
 }

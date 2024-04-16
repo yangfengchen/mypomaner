@@ -127,7 +127,7 @@ public abstract class BuildCodeTemplateServiceImpl implements IBuildCodeTemplate
 
             Template repositoryTemplate = configuration.getTemplate("mapper.ftl");
             // step5 生成数据
-            File repositoryDocFile = createFile(codeOutPutFilePath + "/mapper/" + entityClass.getClassName() +"Repository.java");
+            File repositoryDocFile = createFile(codeOutPutFilePath + "/mapper/" + entityClass.getClassName() +"Mapper.java");
             repositoryOut = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(repositoryDocFile)));
             // step6 输出文件
             repositoryTemplate.process(dataMap, repositoryOut);
