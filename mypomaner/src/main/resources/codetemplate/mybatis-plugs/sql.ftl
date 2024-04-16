@@ -6,7 +6,7 @@
             CREATE TABLE ${tableModel.tableName} (
             <#list tableModel.staticTableColumns as model>
                 <#if model.columnName == "ID" || model.columnName == "id">
-                    ID VARCHAR(50) NOT NULL PRIMARY KEY,
+                    ${model.columnName} ${model.columnType} NOT NULL PRIMARY KEY,
                 <#else>
                     ${model.columnName} ${model.columnType} NULL COMMENT '${model.des}'<#if model_has_next>,</#if>
                 </#if>

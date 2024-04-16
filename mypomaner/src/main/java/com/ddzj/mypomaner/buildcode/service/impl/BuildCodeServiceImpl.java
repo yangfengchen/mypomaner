@@ -121,10 +121,12 @@ public class BuildCodeServiceImpl implements IBuildCodeService {
             String columnType = "";
             if(StringUtils.isNotBlank(tblFieldConfig.getFieldDefLen())){
                 if(StringUtils.isNotBlank(tblFieldConfig.getFieldDefDecimal())){
-                    columnType += "("+tblFieldConfig.getFieldDefLen()+","+ tblFieldConfig.getFieldDefDecimal()+")";
+                    columnType += tblFieldConfig.getFieldBaseType() + "("+tblFieldConfig.getFieldDefLen()+","+ tblFieldConfig.getFieldDefDecimal()+")";
                 }else{
-                    columnType += "("+tblFieldConfig.getFieldDefLen()+")";
+                    columnType += tblFieldConfig.getFieldBaseType() + "("+tblFieldConfig.getFieldDefLen()+")";
                 }
+            }else{
+                columnType += tblFieldConfig.getFieldBaseType() ;
             }
             tableColumn.setColumnType(columnType);
         }
