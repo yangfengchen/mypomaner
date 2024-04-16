@@ -76,7 +76,11 @@ public class BuildCodeServiceImpl implements IBuildCodeService {
             }
             // 组装实体类 基础类跳过
             if(!StringUtils.isNotBlank(fieldTemplateMap.get(tblProjectField.getFieldCode()))){
-                columnClassList.add(buildEntityClass(tableColumn, tblProjectField, tblFieldConfigMap));
+                if(StringUtils.equals(tblProjectConfig.getCodeType(), "dy-mybatis-plugs")){
+                    columnClassList.add(buildOriginalEntityClass(tableColumn, tblProjectField, tblFieldConfigMap));
+                }else{
+                    columnClassList.add(buildEntityClass(tableColumn, tblProjectField, tblFieldConfigMap));
+                }
             }
         }
 
@@ -90,6 +94,8 @@ public class BuildCodeServiceImpl implements IBuildCodeService {
         IBuildCodeTemplateService iBuildCodeTemplateService = null;
         if(StringUtils.equals(tblProjectConfig.getCodeType(), "mybatis-plugs")){
             iBuildCodeTemplateService = new BuildCodeMyBatisPlugsServiceImpl();
+        }else if(StringUtils.equals(tblProjectConfig.getCodeType(), "dy-mybatis-plugs")){
+            iBuildCodeTemplateService = new BuildCodeDyMyBatisPlugsServiceImpl();
         }
         codeTemplateFilePath += "/"+tblProjectConfig.getCodeType() ;
         iBuildCodeTemplateService.buildCodeFile(tableClass, entityClass, codeTemplateFilePath, codeOutPutFilePath);
@@ -108,6 +114,30 @@ public class BuildCodeServiceImpl implements IBuildCodeService {
             }
         }
         columnClass.setChangeColumnName(UnderlineToCamelUtils.underlineToCamel(tableColumn.getColumnName(), false));
+        columnClass.setColumnComment(tableColumn.getDes());
+        columnClass.setChangeColumnNameDx(getDx(columnClass.getChangeColumnName()));
+        return columnClass;
+    }
+
+    /**
+     * 字段跟数据库字段一样
+     * @param tableColumn
+     * @param tblProjectField
+     * @param tblFieldConfigMap
+     * @return
+     */
+    public ColumnClass buildOriginalEntityClass(TableColumn tableColumn, TblProjectField tblProjectField, Map<String, TblFieldConfig> tblFieldConfigMap){
+        ColumnClass columnClass = new ColumnClass();
+        columnClass.setColumnName(tableColumn.getColumnName());
+        if(tblFieldConfigMap.get(tblProjectField.getFieldDataType()) != null) {
+            TblFieldConfig tblFieldConfig = tblFieldConfigMap.get(tblProjectField.getFieldDataType());
+            columnClass.setColumnType(tblFieldConfig.getFieldCodeType());
+            if(StringUtils.isNotBlank(tblFieldConfig.getFieldDefLen()) ||
+                    StringUtils.isBlank(tblFieldConfig.getFieldDefDecimal())){
+                columnClass.setColumnLength(tblFieldConfig.getFieldDefLen());
+            }
+        }
+        columnClass.setChangeColumnName(tableColumn.getColumnName());
         columnClass.setColumnComment(tableColumn.getDes());
         columnClass.setChangeColumnNameDx(getDx(columnClass.getChangeColumnName()));
         return columnClass;
