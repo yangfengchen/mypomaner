@@ -92,6 +92,7 @@ public class ProjectTableController {
 
         TblProjectConfig tblProjectConfig = iTblProjectConfigService.findByProjectCode(projectCode);
         TblProjectInfo tblProjectInfo = iTblProjectInfoService.findByProjectCode(projectCode);
+        saveDto.setFileNameConvert(tblProjectConfig.getFileNameConvert());
         saveDto.setPackageName(tblProjectInfo.getPackageName());
 
         FieldTemplateSearchDto fieldTemplateSearchDto = new FieldTemplateSearchDto();
@@ -136,6 +137,7 @@ public class ProjectTableController {
         saveDto.setZnName(entity.getZnName());
         saveDto.setCodeName(entity.getCodeName());
         saveDto.setPackageName(entity.getPackageName());
+        saveDto.setFileNameConvert(entity.getFileNameConvert());
 
         List<TblProjectField> tblProjectFields = iTblProjectFieldService.findByProjectCodeAndTableId(entity.getProjectCode(), entity.getId());
         List<ProjectFieldSaveDto> projectFieldSaveDtos = Lists.newArrayList();

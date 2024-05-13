@@ -17,12 +17,13 @@ import java.time.LocalDateTime;
 public class TblTableTemplate extends AbstractEntity {
 
     private static final long serialVersionUID = 1L;
-
+    // 表前锥名称
     private String prefixName;
-
+    // 表模板名称
     private String name;
-
+    // 模板状态
     private Boolean enabled;
+    // 模板编码
     private String code;
 
 

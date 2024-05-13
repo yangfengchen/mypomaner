@@ -22,6 +22,8 @@ public class ProjectTableSaveDto {
     private String codeName;
 
     private String packageName;
+
+    private Boolean fileNameConvert;
     private List<ProjectFieldSaveDto> fieldSaveDtoList;
 
 
@@ -186,5 +188,13 @@ public class ProjectTableSaveDto {
      */
     public void setFieldSaveDtoList(List<ProjectFieldSaveDto> fieldSaveDtoList) {
         this.fieldSaveDtoList = fieldSaveDtoList;
+    }
+
+    public Boolean getFileNameConvert() {
+        return fileNameConvert;
+    }
+
+    public void setFileNameConvert(Boolean fileNameConvert) {
+        this.fileNameConvert = fileNameConvert;
     }
 }

@@ -139,6 +139,7 @@ public class ProjectInfoController {
             saveDto.setDatabaseType(tblProjectConfig.getDatabaseType());
             saveDto.setCodeType(tblProjectConfig.getCodeType());
             saveDto.setTableTemplateCode(tblProjectConfig.getTableTemplateCode());
+            saveDto.setFileNameConvert(tblProjectConfig.getFileNameConvert());
         }
 
         editDto.setSaveDto(saveDto);

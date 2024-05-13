@@ -18,18 +18,22 @@ public class TblProjectTable extends AbstractEntity  {
 
     private static final long serialVersionUID = 1L;
 
+    // 表名前缀
     private String prefixName;
-
+    // 表名
     private String name;
-
+    // 是否启用
     private Boolean enabled;
-
+    // 项目编码
     private String projectCode;
+    // 表中文名称
     private String znName;
-
+    // 表实体类名称
     private String codeName;
-
+    // 包名称
     private String packageName;
+    // 字段转换
+    private Boolean fileNameConvert;
 
     public String getPrefixName() {
         return prefixName;
@@ -134,5 +138,13 @@ public class TblProjectTable extends AbstractEntity  {
      */
     public void setPackageName(String packageName) {
         this.packageName = packageName;
+    }
+
+    public Boolean getFileNameConvert() {
+        return fileNameConvert;
+    }
+
+    public void setFileNameConvert(Boolean fileNameConvert) {
+        this.fileNameConvert = fileNameConvert;
     }
 }

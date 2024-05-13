@@ -15,37 +15,37 @@ public class TblFieldTemplate extends AbstractEntity {
 
     private static final long serialVersionUID = 1L;
 
-
+    // 数据库字段名称
     private String fieldCode;
-
+    // 字段名称
     private String fieldName;
-
+    // 字段是否是主键
     private Boolean fieldPrimary;
-
+    // 字段是否为空
     private Boolean fieldNull;
-
+    // 字段是否自增
     private Boolean fieldAuto;
-
+    // 字段类型
     private String fieldType;
-
+    // 字段数据库类型
     private String fieldDataType;
-
+    // 字段长度
     private String fieldLen;
-
+    // 字段小数位
     private String fieldDecimal;
-
+    // 字段描述
     private String fieldDec;
-
+    // 字段默认值
     private String fieldDefaultVal;
-
+    // 字段html类型
     private String fieldHtmlType;
-
+    // 表id
     private String tableId;
-
+    // 是否启用
     private Boolean enabled;
-
+    // 是否启用dto
     private Boolean fieldDtoStatus;
-
+    // 是否启用vo
     private Boolean fieldVoStatus;
 
     @Override

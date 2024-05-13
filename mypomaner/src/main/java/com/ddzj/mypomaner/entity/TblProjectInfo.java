@@ -16,13 +16,13 @@ import java.time.LocalDateTime;
 public class TblProjectInfo extends AbstractEntity {
 
     private static final long serialVersionUID = 1L;
-
+    // 项目名称
     private String projectName;
-
+    // 项目编码
     private String projectCode;
-
+    // 项目中文名称
     private String projectZnName;
-
+    // 项目包名
     private String packageName;
 
     public String getProjectName() {

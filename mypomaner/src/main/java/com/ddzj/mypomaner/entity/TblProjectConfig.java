@@ -17,15 +17,18 @@ public class TblProjectConfig extends AbstractEntity  {
 
     private static final long serialVersionUID = 1L;
 
+    // 项目编码
     private String projectCode;
-
+    // 模板编码
     private String tableTemplateCode;
-
+    // 数据类型
     private String databaseType;
-
+    // 代码类型
     private String codeType;
-
+    // 前缀替换
     private String prefixNameRepice;
+    // 字段转换
+    private Boolean fileNameConvert;
 
     public String getProjectCode() {
         return projectCode;
@@ -67,6 +70,14 @@ public class TblProjectConfig extends AbstractEntity  {
         this.prefixNameRepice = prefixNameRepice;
     }
 
+    public Boolean getFileNameConvert() {
+        return fileNameConvert;
+    }
+
+    public void setFileNameConvert(Boolean fileNameConvert) {
+        this.fileNameConvert = fileNameConvert;
+    }
+
     @Override
     public String toString() {
         return "TblProjectConfig{" +
@@ -82,6 +93,7 @@ public class TblProjectConfig extends AbstractEntity  {
             ", databaseType = " + databaseType +
             ", codeType = " + codeType +
             ", prefixNameRepice = " + prefixNameRepice +
+            ", fileNameConvert = " + fileNameConvert +
         "}";
     }
 }

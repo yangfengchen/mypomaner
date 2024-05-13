@@ -36,6 +36,9 @@
                             </template>
                         </lay-select>
                     </lay-form-item>
+                    <lay-form-item label="数据库和代码字段是否转换" prop="fileNameConvert">
+                      <lay-switch v-model="projectInfoSaveDto.fileNameConvert"/>
+                    </lay-form-item>
                     <lay-form-item style="text-align: center">
                         <lay-button @click="submit5" type="primary">提交</lay-button>
                     </lay-form-item>
@@ -93,6 +96,9 @@ let rules5 = ref( {
     },
     codeType: {
         required: true, message: '必填项'
+    },
+    fileNameConvert:{
+      required: true, message: '必填项'
     }
 } )
 
@@ -121,7 +127,8 @@ let projectInfoSaveDto = reactive( {
     projectZnName: '',
     tableTemplateCode: '',
     databaseType:'',
-    codeType:''
+    codeType:'',
+    fileNameConvert:''
 } )
 
 let dbTypeList = ref( [] )

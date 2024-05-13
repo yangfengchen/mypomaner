@@ -70,6 +70,7 @@ public class TblProjectInfoServiceImpl extends ServiceImpl<TblProjectInfoMapper,
         configEntity.setCodeType(saveDto.getCodeType());
         configEntity.setDatabaseType(saveDto.getDatabaseType());
         configEntity.setTableTemplateCode(saveDto.getTableTemplateCode());
+        configEntity.setFileNameConvert(saveDto.getFileNameConvert());
         if(isUpdate){
             tblProjectConfigMapper.updateById(configEntity);
         }else{

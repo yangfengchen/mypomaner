@@ -116,19 +116,19 @@ let tableThead = [
     customSlot: "fieldCodeType"
   },
   {
-    title: "字段基本类型",
+    title: "字段数据库类型",
     width: "200px",
     key: "fieldBaseType",
     customSlot: "fieldBaseType"
   },
   {
-    title: "字段长度",
+    title: "数据库字段长度",
     width: "200px",
     key: "fieldDefLen",
     customSlot: "fieldDefLen"
   },
   {
-    title: "字段默认小数位",
+    title: "数据库字段默认小数位",
     width: "200px",
     key: "fieldDefDecimal",
     customSlot: "fieldDefDecimal"

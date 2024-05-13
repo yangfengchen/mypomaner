@@ -18,17 +18,18 @@ public class TblFieldConfig extends AbstractEntity  {
 
     private static final long serialVersionUID = 1L;
 
-
+    // 数据库类型
     private String databaseType;
 
+    // 选择字段数据库类型
     private String fieldDbType;
-
+    //  字段代码类型
     private String fieldCodeType;
-
+    // 数据库代码类型
     private String fieldBaseType;
-
+    // 字段长度
     private String fieldDefLen;
-
+    // 字段小数位
     private String fieldDefDecimal;
 
     public String getDatabaseType() {

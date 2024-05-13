@@ -21,6 +21,7 @@ public class ProjectInfoSaveDto {
     private String codeType;
 
     private String packageName;
+    private Boolean fileNameConvert;
 
 
     /**
@@ -165,5 +166,13 @@ public class ProjectInfoSaveDto {
      */
     public void setPackageName(String packageName) {
         this.packageName = packageName;
+    }
+
+    public Boolean getFileNameConvert() {
+        return fileNameConvert;
+    }
+
+    public void setFileNameConvert(Boolean fileNameConvert) {
+        this.fileNameConvert = fileNameConvert;
     }
 }

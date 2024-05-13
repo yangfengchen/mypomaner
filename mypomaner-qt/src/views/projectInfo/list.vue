@@ -70,7 +70,8 @@ let tableThead = [
     {
         title: "项目名称",
         width: "200px",
-        key: "projectName"
+        key: "projectName",
+        fixed: "left",
     },
     {
         title: "项目编码",

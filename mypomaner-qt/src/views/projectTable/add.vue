@@ -2,13 +2,13 @@
     <div class="container">
         <lay-row space="12">
             <lay-col md="16">
-                <lay-form-item label="表名称">
+                <lay-form-item label="数据表名称">
                     <lay-input v-model="projectTableSaveDto.name" />
                 </lay-form-item>
-                <lay-form-item label="类名称">
+                <lay-form-item label="代码类名称" mode="inline">
                     <lay-input v-model="projectTableSaveDto.codeName" />
                 </lay-form-item>
-                <lay-form-item label="包名">
+                <lay-form-item label="代码包名" mode="inline">
                     <lay-input v-model="projectTableSaveDto.packageName" />
                 </lay-form-item>
                 <lay-form-item label="表中文名" mode="inline">
@@ -16,6 +16,9 @@
                 </lay-form-item>
                 <lay-form-item label="是否启用" mode="inline">
                     <lay-switch v-model="projectTableSaveDto.enabled" />
+                </lay-form-item>
+                <lay-form-item label="数据库和代码字段是否转换" mode="inline">
+                  <lay-switch v-model="projectTableSaveDto.fileNameConvert" />
                 </lay-form-item>
             </lay-col>
             <lay-col md="8">
@@ -25,7 +28,7 @@
             </lay-col>
         </lay-row>
         <lay-row>
-            <lay-table :columns="tableThead" :data-source="tableTbody">
+            <lay-table :columns="tableThead" :data-source="tableTbody"  height="450px">
                 <template #fieldCode="{ row }">
                     <lay-input v-model="row.fieldCode" />
                 </template>
@@ -70,6 +73,7 @@
                     <lay-switch v-model="row.enabled"></lay-switch>
                 </template>
 
+
                 <template v-slot:operator="{ row }">
                     <lay-button @click="removeOp($event, row)">删除</lay-button>
                 </template>
@@ -109,89 +113,83 @@ onMounted( () =>
     } )
 } )
 
-
-
 let tableThead = [
-    {
-        title: "字段代码",
-        width: "200px",
-        key: "fieldCode",
-        customSlot: "fieldCode"
-    },
-    {
-        title: "字段名称",
-        width: "200px",
-        key: "fieldName",
-        customSlot: "fieldName"
-    },
-    {
-        title: "字段是否主键",
-        width: "200px",
-        key: "fieldPrimary",
-        customSlot: "fieldPrimary"
-    },
-    {
-        title: "字段是否空",
-        width: "200px",
-        key: "fieldNull",
-        customSlot: "fieldNull"
-    },
-    {
-        title: "字段是否自增",
-        width: "200px",
-        key: "fieldAuto",
-        customSlot: "fieldAuto"
-    },
-    {
-        title: "字段数据类型",
-        width: "200px",
-        key: "fieldDataType",
-        customSlot: "fieldDataType"
-    },
-    {
-        title: "字段长度",
-        width: "200px",
-        key: "fieldLen",
-        customSlot: "fieldLen"
-    },
-    {
-        title: "字段小数位",
-        width: "200px",
-        key: "fieldDecimal",
-        customSlot: "fieldDecimal"
-    },
-    {
-        title: "字段说明",
-        width: "200px",
-        key: "fieldDec",
-        customSlot: "fieldDec"
-    },
-    {
-        title: "字段默认值",
-        width: "200px",
-        key: "fieldDefaultVal",
-        customSlot: "fieldDefaultVal"
-    },
-    {
-        title: "字段dto",
-        width: "200px",
-        key: "fieldDtoStatus",
-        customSlot: "fieldDtoStatus"
-    },
-    {
-        title: "字段vo",
-        width: "200px",
-        key: "fieldVoStatus",
-        customSlot: "fieldVoStatus"
-    },
-    {
-        title: "是否启用",
-        width: "200px",
-        key: "enabled",
-        customSlot: "enabled"
-    }, {
-        title: "操作", width: "150px", customSlot: "operator", ignoreExport: true
-    }
+  {
+    title: "字段代码",
+    width: "200px",
+    key: "fieldCode",
+    customSlot: "fieldCode",
+    fixed: "left",
+  },
+  {
+    title: "字段名称",
+    width: "200px",
+    key: "fieldName",
+    customSlot: "fieldName",
+    fixed: "left",
+  },
+  {
+    title: "字段数据类型",
+    width: "170px",
+    key: "fieldDataType",
+    customSlot: "fieldDataType"
+  },
+  {
+    title: "字段长度",
+    width: "70px",
+    key: "fieldLen",
+    customSlot: "fieldLen"
+  },
+  {
+    title: "字段小数位",
+    width: "50px",
+    key: "fieldDecimal",
+    customSlot: "fieldDecimal"
+  },
+  {
+    title: "字段是否主键",
+    width: "60px",
+    key: "fieldPrimary",
+    customSlot: "fieldPrimary"
+  },
+  {
+    title: "字段是否空",
+    width: "60px",
+    key: "fieldNull",
+    customSlot: "fieldNull"
+  },
+  {
+    title: "字段是否自增",
+    width: "60px",
+    key: "fieldAuto",
+    customSlot: "fieldAuto"
+  },
+  {
+    title: "字段默认值",
+    width: "80px",
+    key: "fieldDefaultVal",
+    customSlot: "fieldDefaultVal"
+  },
+  {
+    title: "字段dto",
+    width: "60px",
+    key: "fieldDtoStatus",
+    customSlot: "fieldDtoStatus"
+  },
+  {
+    title: "字段vo",
+    width: "60px",
+    key: "fieldVoStatus",
+    customSlot: "fieldVoStatus"
+  },
+  {
+    title: "是否启用",
+    width: "60px",
+    key: "enabled",
+    customSlot: "enabled"
+  }, {
+    title: "操作", width: "150px", customSlot: "operator", ignoreExport: true
+  }
 ];
 
 function addData ()
@@ -252,4 +250,8 @@ function saveOpData ()
 
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.container{
+  padding: 10px 5px;
+}
+</style>

@@ -14,39 +14,40 @@ import com.baomidou.mybatisplus.annotation.TableName;
 public class TblProjectField extends AbstractEntity  {
 
     private static final long serialVersionUID = 1L;
-
+    // 数据库字段
     private String fieldCode;
+    // 数据库字段名称
 
     private String fieldName;
-
+    // 数据库字段是否主键
     private Boolean fieldPrimary;
-
+    // 数据库字段是否为空
     private Boolean fieldNull;
-
+    // 数据库字段是否自增
     private Boolean fieldAuto;
-
+    // 数据库字段选择类型
     private String fieldType;
-
+    // 数据库字段数据类型
     private String fieldDataType;
-
+    // 数据库字段长度
     private String fieldLen;
-
+    // 数据库字段小数位数
     private String fieldDecimal;
-
+    // 数据库字段描述
     private String fieldDec;
-
+    // 数据库字段默认值
     private String fieldDefaultVal;
-
+    // 数据库字段html类型
     private String fieldHtmlType;
-
+    // 数据库字段所属表
     private String tableId;
-
+    // 数据库字段是否启用
     private Boolean enabled;
-
+    // 项目编码
     private String projectCode;
-
+    // 数据库字段是否生成dto
     private Boolean fieldDtoStatus;
-
+    // 数据库字段是否生成vo
     private Boolean fieldVoStatus;
 
 

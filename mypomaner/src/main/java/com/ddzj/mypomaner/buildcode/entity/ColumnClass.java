@@ -35,6 +35,8 @@ public class ColumnClass {
   private String changeColumnNameDx;
 
   private String colomnDbName;
+  // 自增
+  private Boolean autoIncrement;
 
 
   /**
@@ -161,5 +163,24 @@ public class ColumnClass {
    */
   public void setColomnDbName(String colomnDbName) {
     this.colomnDbName = colomnDbName;
+  }
+
+
+  /**
+   * 获取 自增
+   *
+   * @return autoIncrement 自增
+   */
+  public Boolean getAutoIncrement() {
+    return this.autoIncrement;
+  }
+
+  /**
+   * 设置 自增
+   *
+   * @param autoIncrement 自增
+   */
+  public void setAutoIncrement(Boolean autoIncrement) {
+    this.autoIncrement = autoIncrement;
   }
 }
