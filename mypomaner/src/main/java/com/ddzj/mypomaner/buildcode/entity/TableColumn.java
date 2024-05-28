@@ -24,6 +24,10 @@ public class TableColumn {
   private String columnName;
   private String des;
   private String columnType;
+  // 是否索引
+  private Boolean indexStatus;
+  // 索引前缀名称
+  private String indexName;
 
 
   /**
@@ -78,5 +82,21 @@ public class TableColumn {
    */
   public void setColumnType(String columnType) {
     this.columnType = columnType;
+  }
+
+  public Boolean getIndexStatus() {
+    return indexStatus;
+  }
+
+  public void setIndexStatus(Boolean indexStatus) {
+    this.indexStatus = indexStatus;
+  }
+
+  public String getIndexName() {
+    return indexName;
+  }
+
+  public void setIndexName(String indexName) {
+    this.indexName = indexName;
   }
 }

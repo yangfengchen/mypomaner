@@ -70,7 +70,7 @@ public class BuildCodeServiceImpl implements IBuildCodeService {
 
         for(TblProjectField tblProjectField : tblProjectFieldList){
             // 组装数据库表
-            TableColumn tableColumn = buildTableColumn(tblProjectField, tblFieldConfigMap);
+            TableColumn tableColumn = buildTableColumn(tblProjectTable, tblProjectField, tblFieldConfigMap);
             if(StringUtils.isNotBlank(fieldTemplateMap.get(tblProjectField.getFieldCode()))){
                 staticTableColumns.add(tableColumn);
             }else{
@@ -123,7 +123,7 @@ public class BuildCodeServiceImpl implements IBuildCodeService {
         return columnClass;
     }
 
-    public TableColumn buildTableColumn(TblProjectField tblProjectField, Map<String, TblFieldConfig> tblFieldConfigMap){
+    public TableColumn buildTableColumn(TblProjectTable tblProjectTable, TblProjectField tblProjectField, Map<String, TblFieldConfig> tblFieldConfigMap){
         TableColumn tableColumn = new TableColumn();
         tableColumn.setColumnName(tblProjectField.getFieldCode());
         if(tblFieldConfigMap.get(tblProjectField.getFieldDataType()) != null){
@@ -140,6 +140,11 @@ public class BuildCodeServiceImpl implements IBuildCodeService {
             }
             tableColumn.setColumnType(columnType);
         }
+        tableColumn.setIndexStatus(tblProjectField.getIndexStatus());
+        if(tableColumn.getIndexStatus() == null){
+            tableColumn.setIndexStatus(false);
+        }
+        tableColumn.setIndexName(tblProjectTable.getIndexName());
         tableColumn.setDes(tblProjectField.getFieldName());
         return tableColumn;
     }

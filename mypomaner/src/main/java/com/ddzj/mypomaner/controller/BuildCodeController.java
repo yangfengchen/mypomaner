@@ -14,11 +14,14 @@ import com.google.common.collect.Maps;
 import org.apache.commons.collections4.CollectionUtils;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -48,6 +51,8 @@ public class BuildCodeController {
     private ITblFieldTemplateService iTblFieldTemplateService;
     @Autowired
     private IBuildCodeService iBuildCodeService;
+    @Autowired
+    private Environment environment;
 
     /**
      * 根据项目获取代码
@@ -61,6 +66,16 @@ public class BuildCodeController {
         Map<String, String> fieldTemplateMap = getFieldTemplateMap(tblProjectConfig);
 
         List<TblProjectTable> tblProjectTableList = iTblProjectTableService.findByProjectCode(tblProjectInfo.getProjectCode());
+        String codeOutPutFilePath = environment.getProperty("codeOutPutFilePath");
+        File file = new File(codeOutPutFilePath + "/sql/all.sql");
+        if(file.exists()){
+            file.delete();
+        }
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         for(TblProjectTable tblProjectTable : tblProjectTableList){
            List<TblProjectField> tblProjectFieldList = iTblProjectFieldService.findByProjectCodeAndTableId(tblProjectInfo.getProjectCode(), tblProjectTable.getId());
             iBuildCodeService.buildCodeFile(tblProjectInfo, tblProjectConfig, fieldConfigMap, tblProjectTable, tblProjectFieldList, fieldTemplateMap);

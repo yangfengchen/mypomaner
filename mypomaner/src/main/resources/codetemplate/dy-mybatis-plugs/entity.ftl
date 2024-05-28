@@ -40,8 +40,10 @@ public class ${className!} implements Serializable{
 <#if model_column?exists>
     <#list model_column as model>
       //${model.columnComment!}
-      <#if model.autoIncrement>
+      <#if model.autoIncrement && model.primaryKey>
       @TableId(value = "${model.changeColumnName?uncap_first}", type = IdType.AUTO)
+      <#elseif model.primaryKey>
+      @TableId(value = "${model.changeColumnName?uncap_first}")
       <#else>
       @TableField(value = "${model.changeColumnName?uncap_first}")
       </#if>

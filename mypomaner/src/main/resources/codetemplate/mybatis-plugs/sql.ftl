@@ -17,6 +17,13 @@
         <#if tableModel.columnList?exists>
             <#list tableModel.columnList as model>
                 ALTER TABLE ${tableModel.tableName} ADD ${model.columnName} ${model.columnType} NULL  COMMENT '${model.des}';
+                 <#if model.indexStatus>
+                     <#if model.indexName?exists>
+                         CREATE INDEX ${model.indexName?upper_case}${model.columnName?upper_case} ON ${tableModel.tableName} (${model.columnName});
+                     <#else>
+                         CREATE INDEX IDX_${model.columnName?upper_case} ON ${tableModel.tableName} (${model.columnName});
+                     </#if>
+                 </#if>
             </#list>
         </#if>
 

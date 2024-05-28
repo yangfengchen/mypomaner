@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -171,6 +172,10 @@ public abstract class BuildCodeTemplateServiceImpl implements IBuildCodeTemplate
             out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(docFile)));
             // step6 输出文件
             template.process(dataMap, out);
+
+            StringWriter writer = new StringWriter();
+            template.process(dataMap, writer);
+            buildAllFile( codeOutPutFilePath + "/sql/all.sql", writer.getBuffer().toString().trim());
             logger.debug("^^^^^^^^^^^^^^^^^^^^^^^^" + tableClass.getTableName() + " 文件创建成功 !");
         } catch (Exception e) {
             e.printStackTrace();
@@ -184,4 +189,17 @@ public abstract class BuildCodeTemplateServiceImpl implements IBuildCodeTemplate
             }
         }
     }
+
+    public void buildAllFile(String path, String content){
+        File file = new File(path);
+        try (BufferedWriter writer = new BufferedWriter(
+                new OutputStreamWriter(
+                        new FileOutputStream(file, true), StandardCharsets.UTF_8))) {
+            writer.append(content);
+            writer.newLine(); // 如果需要在内容后添加换行符
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
