@@ -161,7 +161,7 @@ const designViewOp = (e, row) =>{
 const buildCodeOp = (e, row) =>
 {
     getCodeByProjectFile(row.projectCode).then(data => {
-        if(data == "true"){
+      if(data == true){
             layerSuccess("生成代码成功")
         }
     })

@@ -24,6 +24,10 @@ public class ProjectTableSaveDto {
     private String packageName;
 
     private Boolean fileNameConvert;
+    // 索引名称
+    private String indexName;
+    // 创建人名称
+    private String createName;
     private List<ProjectFieldSaveDto> fieldSaveDtoList;
 
 
@@ -196,5 +200,21 @@ public class ProjectTableSaveDto {
 
     public void setFileNameConvert(Boolean fileNameConvert) {
         this.fileNameConvert = fileNameConvert;
+    }
+
+    public String getIndexName() {
+        return indexName;
+    }
+
+    public void setIndexName(String indexName) {
+        this.indexName = indexName;
+    }
+
+    public String getCreateName() {
+        return createName;
+    }
+
+    public void setCreateName(String createName) {
+        this.createName = createName;
     }
 }

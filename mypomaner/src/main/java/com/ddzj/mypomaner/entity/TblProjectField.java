@@ -49,6 +49,8 @@ public class TblProjectField extends AbstractEntity  {
     private Boolean fieldDtoStatus;
     // 数据库字段是否生成vo
     private Boolean fieldVoStatus;
+    // 索引状态
+    private Boolean indexStatus;
 
 
     @Override
@@ -78,6 +80,7 @@ public class TblProjectField extends AbstractEntity  {
             ", projectCode = " + projectCode +
             ", fieldDtoStatus = " + fieldDtoStatus +
             ", fieldVoStatus = " + fieldVoStatus +
+            ", indexStatus = " + indexStatus +
         "}";
     }
 
@@ -385,5 +388,13 @@ public class TblProjectField extends AbstractEntity  {
      */
     public void setFieldVoStatus(Boolean fieldVoStatus) {
         this.fieldVoStatus = fieldVoStatus;
+    }
+
+    public Boolean getIndexStatus() {
+        return indexStatus;
+    }
+
+    public void setIndexStatus(Boolean indexStatus) {
+        this.indexStatus = indexStatus;
     }
 }

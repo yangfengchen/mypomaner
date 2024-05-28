@@ -10,6 +10,7 @@ import com.ddzj.mypomaner.entity.*;
 import com.ddzj.mypomaner.service.DateService;
 import com.ddzj.mypomaner.utils.UnderlineToCamelUtils;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,8 @@ public class BuildCodeServiceImpl implements IBuildCodeService {
         Date currentTime = dateService.getCurrentTime();
         entityClass.setCreateFileDate(DateFormatUtils.format(currentTime, "yyyy-MM-dd HH:mm:ss"));
         entityClass.setCreateFileDateYear(DateFormatUtils.format(currentTime, "yyyy"));
-        entityClass.setCreateFileAuth("default");
+        // 创建人
+        entityClass.setCreateFileAuth(StringUtils.isNotBlank(tblProjectTable.getCreateName())?tblProjectTable.getCreateName():"default");
         entityClass.setClassName(tblProjectTable.getCodeName());
         entityClass.setTableName(tblProjectTable.getName());
         entityClass.setDes(tblProjectTable.getZnName());
@@ -76,11 +78,7 @@ public class BuildCodeServiceImpl implements IBuildCodeService {
             }
             // 组装实体类 基础类跳过
             if(!StringUtils.isNotBlank(fieldTemplateMap.get(tblProjectField.getFieldCode()))){
-                if(StringUtils.equals(tblProjectConfig.getCodeType(), "dy-mybatis-plugs")){
-                    columnClassList.add(buildOriginalEntityClass(tableColumn, tblProjectField, tblFieldConfigMap));
-                }else{
-                    columnClassList.add(buildEntityClass(tableColumn, tblProjectField, tblFieldConfigMap));
-                }
+                columnClassList.add(buildEntityClass(tblProjectTable, tableColumn, tblProjectField, tblFieldConfigMap));
             }
         }
 
@@ -102,7 +100,7 @@ public class BuildCodeServiceImpl implements IBuildCodeService {
 
     }
 
-    public ColumnClass buildEntityClass(TableColumn tableColumn, TblProjectField tblProjectField, Map<String, TblFieldConfig> tblFieldConfigMap){
+    public ColumnClass buildEntityClass(TblProjectTable tblProjectTable, TableColumn tableColumn, TblProjectField tblProjectField, Map<String, TblFieldConfig> tblFieldConfigMap){
         ColumnClass columnClass = new ColumnClass();
         columnClass.setColumnName(tableColumn.getColumnName());
         if(tblFieldConfigMap.get(tblProjectField.getFieldDataType()) != null) {
@@ -113,31 +111,13 @@ public class BuildCodeServiceImpl implements IBuildCodeService {
                 columnClass.setColumnLength(tblFieldConfig.getFieldDefLen());
             }
         }
-        columnClass.setChangeColumnName(UnderlineToCamelUtils.underlineToCamel(tableColumn.getColumnName(), false));
-        columnClass.setColumnComment(tableColumn.getDes());
-        columnClass.setChangeColumnNameDx(getDx(columnClass.getChangeColumnName()));
-        return columnClass;
-    }
-
-    /**
-     * 字段跟数据库字段一样
-     * @param tableColumn
-     * @param tblProjectField
-     * @param tblFieldConfigMap
-     * @return
-     */
-    public ColumnClass buildOriginalEntityClass(TableColumn tableColumn, TblProjectField tblProjectField, Map<String, TblFieldConfig> tblFieldConfigMap){
-        ColumnClass columnClass = new ColumnClass();
-        columnClass.setColumnName(tableColumn.getColumnName());
-        if(tblFieldConfigMap.get(tblProjectField.getFieldDataType()) != null) {
-            TblFieldConfig tblFieldConfig = tblFieldConfigMap.get(tblProjectField.getFieldDataType());
-            columnClass.setColumnType(tblFieldConfig.getFieldCodeType());
-            if(StringUtils.isNotBlank(tblFieldConfig.getFieldDefLen()) ||
-                    StringUtils.isBlank(tblFieldConfig.getFieldDefDecimal())){
-                columnClass.setColumnLength(tblFieldConfig.getFieldDefLen());
-            }
+        columnClass.setPrimaryKey(tblProjectField.getFieldPrimary());
+        columnClass.setAutoIncrement(tblProjectField.getFieldAuto());
+        if(BooleanUtils.isTrue(tblProjectTable.getFileNameConvert())){
+            columnClass.setChangeColumnName(UnderlineToCamelUtils.underlineToCamel(tableColumn.getColumnName(), false));
+        }else{
+            columnClass.setChangeColumnName(tableColumn.getColumnName());
         }
-        columnClass.setChangeColumnName(tableColumn.getColumnName());
         columnClass.setColumnComment(tableColumn.getDes());
         columnClass.setChangeColumnNameDx(getDx(columnClass.getChangeColumnName()));
         return columnClass;
@@ -151,9 +131,9 @@ public class BuildCodeServiceImpl implements IBuildCodeService {
             String columnType = "";
             if(StringUtils.isNotBlank(tblFieldConfig.getFieldDefLen())){
                 if(StringUtils.isNotBlank(tblFieldConfig.getFieldDefDecimal())){
-                    columnType += tblFieldConfig.getFieldBaseType() + "("+tblFieldConfig.getFieldDefLen()+","+ tblFieldConfig.getFieldDefDecimal()+")";
+                    columnType += tblFieldConfig.getFieldBaseType() + "("+tblProjectField.getFieldLen()+","+ tblProjectField.getFieldDecimal()+")";
                 }else{
-                    columnType += tblFieldConfig.getFieldBaseType() + "("+tblFieldConfig.getFieldDefLen()+")";
+                    columnType += tblFieldConfig.getFieldBaseType() + "("+tblProjectField.getFieldLen()+")";
                 }
             }else{
                 columnType += tblFieldConfig.getFieldBaseType() ;

@@ -35,6 +35,8 @@ public class ColumnClass {
   private String changeColumnNameDx;
 
   private String colomnDbName;
+  // 是否数据库主键
+  private Boolean primaryKey;
   // 自增
   private Boolean autoIncrement;
 
@@ -182,5 +184,13 @@ public class ColumnClass {
    */
   public void setAutoIncrement(Boolean autoIncrement) {
     this.autoIncrement = autoIncrement;
+  }
+
+  public Boolean getPrimaryKey() {
+    return primaryKey;
+  }
+
+  public void setPrimaryKey(Boolean primaryKey) {
+    this.primaryKey = primaryKey;
   }
 }

@@ -1,117 +1,123 @@
 <template>
-    <div class="container">
-        <lay-row space="12">
-            <lay-col md="16">
-                <lay-form-item label="数据表名称">
-                    <lay-input v-model="projectTableSaveDto.name" />
-                </lay-form-item>
-                <lay-form-item label="代码类名称" mode="inline">
-                    <lay-input v-model="projectTableSaveDto.codeName" />
-                </lay-form-item>
-                <lay-form-item label="代码包名" mode="inline">
-                    <lay-input v-model="projectTableSaveDto.packageName" />
-                </lay-form-item>
-                <lay-form-item label="表中文名" mode="inline">
-                    <lay-input v-model="projectTableSaveDto.znName" />
-                </lay-form-item>
-                <lay-form-item label="是否启用" mode="inline">
-                    <lay-switch v-model="projectTableSaveDto.enabled" />
-                </lay-form-item>
-                <lay-form-item label="数据库和代码字段是否转换" mode="inline">
-                  <lay-switch v-model="projectTableSaveDto.fileNameConvert" />
-                </lay-form-item>
-            </lay-col>
-            <lay-col md="8">
-                <lay-button @click="addData">添加数据</lay-button>
-                <lay-button @click="saveOpData">保存数据</lay-button>
-                <lay-button @click="toHome" type="normal">返回主页</lay-button>
-            </lay-col>
-        </lay-row>
-        <lay-row>
-            <lay-table :columns="tableThead" :data-source="tableTbody"  height="450px">
-                <template #fieldCode="{ row }">
-                    <lay-input v-model="row.fieldCode" />
-                </template>
-                <template #fieldName="{ row }">
-                    <lay-input v-model="row.fieldName" />
-                </template>
-                <template #fieldPrimary="{ row }">
-                    <lay-switch v-model="row.fieldPrimary"></lay-switch>
-                </template>
-                <template #fieldNull="{ row }">
-                    <lay-switch v-model="row.fieldNull"></lay-switch>
-                </template>
-                <template #fieldAuto="{ row }">
-                    <lay-switch v-model="row.fieldAuto"></lay-switch>
-                </template>
-                <template #fieldDataType="{ row }">
-                    <lay-select v-model="row.fieldDataType">
-                        <template v-for="item in fieldDbTypeList">
-                            <lay-select-option :value="item.value" :label="item.label" />
-                        </template>
-                    </lay-select>
-                </template>
-                <template #fieldLen="{ row }">
-                    <lay-input v-model="row.fieldLen" />
-                </template>
-                <template #fieldDecimal="{ row }">
-                    <lay-input v-model="row.fieldDecimal" />
-                </template>
-                <template #fieldDec="{ row }">
-                    <lay-input v-model="row.fieldDec" />
-                </template>
-                <template #fieldDefaultVal="{ row }">
-                    <lay-input v-model="row.fieldDefaultVal" />
-                </template>
-                <template #fieldDtoStatus="{ row }">
-                    <lay-switch v-model="row.fieldDtoStatus"></lay-switch>
-                </template>
-                <template #fieldVoStatus="{ row }">
-                    <lay-switch v-model="row.fieldVoStatus"></lay-switch>
-                </template>
-                <template #enabled="{ row }">
-                    <lay-switch v-model="row.enabled"></lay-switch>
-                </template>
+  <div class="container">
+    <lay-form>
+      <lay-form-item label="数据表名称">
+        <lay-input v-model="projectTableSaveDto.name"/>
+      </lay-form-item>
+      <lay-form-item label="代码类名称" mode="inline">
+        <lay-input v-model="projectTableSaveDto.codeName"/>
+      </lay-form-item>
+      <lay-form-item label="代码包名" mode="inline">
+        <lay-input v-model="projectTableSaveDto.packageName"/>
+      </lay-form-item>
+      <lay-form-item label="表中文名" mode="inline">
+        <lay-input v-model="projectTableSaveDto.znName"/>
+      </lay-form-item>
+      <lay-form-item label="是否启用" mode="inline">
+        <lay-switch v-model="projectTableSaveDto.enabled"/>
+      </lay-form-item>
+      <lay-form-item label="表字段转小驼峰" mode="inline">
+        <lay-switch v-model="projectTableSaveDto.fileNameConvert"/>
+      </lay-form-item>
+      <lay-form-item label="索引名称前缀" mode="inline">
+        <lay-input v-model="projectTableSaveDto.indexName"/>
+      </lay-form-item>
+      <lay-form-item label="表和实体类创建人" mode="inline">
+        <lay-input v-model="projectTableSaveDto.createName"/>
+      </lay-form-item>
+      <lay-form-item>
+        <lay-button @click="addData">添加数据</lay-button>
+        <lay-button @click="saveOpData">保存数据</lay-button>
+        <lay-button @click="toHome" type="normal">返回主页</lay-button>
+      </lay-form-item>
+    </lay-form>
+    <lay-row>
+      <lay-table :columns="tableThead" :data-source="tableTbody" height="450px">
+        <template #fieldCode="{ row }">
+          <lay-input v-model="row.fieldCode"/>
+        </template>
+        <template #fieldName="{ row }">
+          <lay-input v-model="row.fieldName"/>
+        </template>
+        <template #fieldPrimary="{ row }">
+          <lay-switch v-model="row.fieldPrimary"></lay-switch>
+        </template>
+        <template #fieldNull="{ row }">
+          <lay-switch v-model="row.fieldNull"></lay-switch>
+        </template>
+        <template #fieldAuto="{ row }">
+          <lay-switch v-model="row.fieldAuto"></lay-switch>
+        </template>
+        <template #indexStatus="{ row }">
+          <lay-switch v-model="row.indexStatus"></lay-switch>
+        </template>
+        <template #fieldDataType="{ row }">
+          <lay-select v-model="row.fieldDataType">
+            <template v-for="item in fieldDbTypeList">
+              <lay-select-option :value="item.value" :label="item.label"/>
+            </template>
+          </lay-select>
+        </template>
+        <template #fieldLen="{ row }">
+          <lay-input v-model="row.fieldLen"/>
+        </template>
+        <template #fieldDecimal="{ row }">
+          <lay-input v-model="row.fieldDecimal"/>
+        </template>
+        <template #fieldDec="{ row }">
+          <lay-input v-model="row.fieldDec"/>
+        </template>
+        <template #fieldDefaultVal="{ row }">
+          <lay-input v-model="row.fieldDefaultVal"/>
+        </template>
+        <template #fieldDtoStatus="{ row }">
+          <lay-switch v-model="row.fieldDtoStatus"></lay-switch>
+        </template>
+        <template #fieldVoStatus="{ row }">
+          <lay-switch v-model="row.fieldVoStatus"></lay-switch>
+        </template>
+        <template #enabled="{ row }">
+          <lay-switch v-model="row.enabled"></lay-switch>
+        </template>
 
 
-                <template v-slot:operator="{ row }">
-                    <lay-button @click="removeOp($event, row)">删除</lay-button>
-                </template>
-            </lay-table>
-        </lay-row>
-    </div>
+        <template v-slot:operator="{ row }">
+          <lay-button @click="removeOp($event, row)">删除</lay-button>
+        </template>
+      </lay-table>
+    </lay-row>
+  </div>
 </template>
 <script setup>
-import { reactive, onBeforeMount, onMounted, ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import { addViewData, saveData } from '@/api/projectTable/projectTableApi'
-import { getIdByType } from '@/api/idgenerate/idgenerateApi'
-import { layerSuccess, layerError } from '@/api/messageBuilder'
+import {reactive, onBeforeMount, onMounted, ref} from 'vue'
+import {useRouter, useRoute} from 'vue-router'
+import {addViewData, saveData} from '@/api/projectTable/projectTableApi'
+import {getIdByType} from '@/api/idgenerate/idgenerateApi'
+import {layerSuccess, layerError} from '@/api/messageBuilder'
 
 const router = useRouter()
 const route = useRoute()
-let fieldDbTypeList = ref( [] )
-let projectCode = ref( '' )
-let projectTableSaveDto = reactive( {
-    fielddSaveDtoList: []
-} )
-let tableTbody = ref( [] )
+let fieldDbTypeList = ref([])
+let projectCode = ref('')
+let projectTableSaveDto = reactive({
+  fielddSaveDtoList: []
+})
+let tableTbody = ref([])
 
-onBeforeMount( () =>
-{
-    //console.log('2.组件挂载页面之前执行----onBeforeMount')
-} )
-onMounted( () =>
-{
-    //console.log('3.-组件挂载到页面之后执行-------onMounted')
-    projectCode.value = route.query.projectCode
-    addViewData( projectCode.value ).then( data =>
-    {
-        fieldDbTypeList.value = data.fieldDbTypeList
-        Object.assign( projectTableSaveDto, data.saveDto )
-        tableTbody.value = projectTableSaveDto.fieldSaveDtoList;
-    } )
-} )
+onBeforeMount(() => {
+  //console.log('2.组件挂载页面之前执行----onBeforeMount')
+})
+onMounted(() => {
+  //console.log('3.-组件挂载到页面之后执行-------onMounted')
+  projectCode.value = route.query.projectCode
+
+  addViewData(projectCode.value).then(data => {
+    fieldDbTypeList.value = data.fieldDbTypeList
+    Object.assign(projectTableSaveDto, data.saveDto)
+    tableTbody.value = projectTableSaveDto.fieldSaveDtoList;
+    projectTableSaveDto.createName = route.query.createName
+  })
+})
 
 let tableThead = [
   {
@@ -165,6 +171,12 @@ let tableThead = [
     customSlot: "fieldAuto"
   },
   {
+    title: "字段是否索引",
+    width: "60px",
+    key: "indexStatus",
+    customSlot: "indexStatus"
+  },
+  {
     title: "字段默认值",
     width: "80px",
     key: "fieldDefaultVal",
@@ -192,66 +204,71 @@ let tableThead = [
   }
 ];
 
-function addData ()
-{
-    getIdByType( 'projectTable' ).then( data =>
-    {
-        let _obj = {
-            id: data,
-            fieldCode: '',
-            fieldName: '',
-            fieldPrimary: false,
-            fieldNull: true,
-            fieldAuto: false,
-            fieldType: '',
-            fieldDataType: '',
-            fieldLen: '',
-            fieldDecimal: '',
-            fieldDec: '',
-            fieldDefaultVal: '',
-            fieldHtmlType: '',
-            tableId: projectTableSaveDto.id,
-            projectCode: projectCode.value,
-            enabled: true,
-            fieldDtoStatus: false,
-            fieldVoStatus: false
-        }
-        tableTbody.value.push( _obj )
-    } )
+function addData() {
+  getIdByType('projectTable').then(data => {
+    let _obj = {
+      id: data,
+      fieldCode: '',
+      fieldName: '',
+      fieldPrimary: false,
+      fieldNull: true,
+      fieldAuto: false,
+      fieldType: '',
+      fieldDataType: '',
+      fieldLen: '',
+      fieldDecimal: '',
+      fieldDec: '',
+      fieldDefaultVal: '',
+      fieldHtmlType: '',
+      indexStatus: false,
+      tableId: projectTableSaveDto.id,
+      projectCode: projectCode.value,
+      enabled: true,
+      fieldDtoStatus: false,
+      fieldVoStatus: false
+    }
+    tableTbody.value.push(_obj)
+  })
 }
 
-const removeOp = ( e, row ) =>
-{
-    tableTbody.value = tableTbody.value.filter( item => item.id !== row.id )
+const removeOp = (e, row) => {
+  tableTbody.value = tableTbody.value.filter(item => item.id !== row.id)
 }
 
-const toHome = () =>
-{
-    router.push( {
-        path: '/projectTableList',
-        query: {
-            projectCode: projectCode.value
-        }
-    } )
+const toHome = () => {
+  router.push({
+    path: '/projectTableList',
+    query: {
+      createName: projectTableSaveDto.createName,
+      projectCode: projectCode.value
+    }
+  })
 }
 
-function saveOpData ()
-{
-    let saveDto = reactive( {
-        fieldSaveDtoList: []
-    } );
-    Object.assign( saveDto, projectTableSaveDto )
-    saveDto.fieldSaveDtoList = tableTbody.value
-    saveData( saveDto ).then( data =>
-    {
-        layerSuccess( data )
-    } )
+function saveOpData() {
+  let saveDto = reactive({
+    fieldSaveDtoList: []
+  });
+  Object.assign(saveDto, projectTableSaveDto)
+  saveDto.fieldSaveDtoList = tableTbody.value
+  saveData(saveDto).then(data => {
+    layerSuccess(data)
+  })
 }
 
 </script>
 
 <style scoped lang="scss">
-.container{
+.container {
   padding: 10px 5px;
+
+  :deep(.layui-form-label) {
+    width: 120px !important;
+  }
+
+  :deep(.layui-form-label + .layui-input-block) {
+    margin-left: 135px !important;
+  }
 }
+
 </style>

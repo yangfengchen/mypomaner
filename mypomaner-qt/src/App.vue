@@ -34,7 +34,7 @@ import {  RouterView } from 'vue-router'
   padding:0 0;
 }
 .container-main {
-  width:99.99%;
+  width:99.0%;
   min-height: 99.99%;
   padding: 5px;
 }

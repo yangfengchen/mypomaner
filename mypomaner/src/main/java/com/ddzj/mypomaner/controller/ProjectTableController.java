@@ -138,6 +138,8 @@ public class ProjectTableController {
         saveDto.setCodeName(entity.getCodeName());
         saveDto.setPackageName(entity.getPackageName());
         saveDto.setFileNameConvert(entity.getFileNameConvert());
+        saveDto.setIndexName(entity.getIndexName());
+        saveDto.setCreateName(entity.getCreateName());
 
         List<TblProjectField> tblProjectFields = iTblProjectFieldService.findByProjectCodeAndTableId(entity.getProjectCode(), entity.getId());
         List<ProjectFieldSaveDto> projectFieldSaveDtos = Lists.newArrayList();

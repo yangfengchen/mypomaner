@@ -41,6 +41,8 @@ public class ProjectFieldSaveDto {
     private Boolean fieldDtoStatus;
 
     private Boolean fieldVoStatus;
+    // 索引状态
+    private Boolean indexStatus;
 
     /**
      * 获取
@@ -364,5 +366,13 @@ public class ProjectFieldSaveDto {
      */
     public void setFieldVoStatus(Boolean fieldVoStatus) {
         this.fieldVoStatus = fieldVoStatus;
+    }
+
+    public Boolean getIndexStatus() {
+        return indexStatus;
+    }
+
+    public void setIndexStatus(Boolean indexStatus) {
+        this.indexStatus = indexStatus;
     }
 }

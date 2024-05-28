@@ -1,5 +1,6 @@
 package com.ddzj.mypomaner.controller;
 
+import com.ddzj.mypomaner.utils.IdUtils;
 import com.ddzj.mypomaner.vo.AjaxResultVo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,7 @@ public class IdGenerateController {
 
     @GetMapping("/getIdByType/{type}")
     public AjaxResultVo getIdByType(@PathVariable("type") String type){
-        return AjaxResultVo.ok(UUID.randomUUID().toString());
+        return AjaxResultVo.ok(IdUtils.getSnowflakeIdWorkerId());
     }
 
 }

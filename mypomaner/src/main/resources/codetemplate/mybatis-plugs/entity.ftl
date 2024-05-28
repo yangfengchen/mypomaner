@@ -16,7 +16,7 @@ import ${classPath!}.entity.AbstractEntity;
 *   Copyright: ${createFileDateYear} . All rights reserved.
 * </p>
 * <p>
-*   Company: yangzibo
+*   Company: ${createFileAuth}
 * </p>
 * <p>
 *   CreateDate:${createFileDate}

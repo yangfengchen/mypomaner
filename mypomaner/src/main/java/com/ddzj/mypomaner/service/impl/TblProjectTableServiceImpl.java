@@ -117,6 +117,9 @@ public class TblProjectTableServiceImpl extends ServiceImpl<TblProjectTableMappe
         entity.setPrefixName(saveDto.getPrefixName());
         entity.setZnName(saveDto.getZnName());
         entity.setPackageName(saveDto.getPackageName());
+        entity.setFileNameConvert(saveDto.getFileNameConvert());
+        entity.setIndexName(saveDto.getIndexName());
+        entity.setCreateName(saveDto.getCreateName());
         entity.setUpdatedTime(dateService.getLocalDateTimeNow());
         return entity;
     }

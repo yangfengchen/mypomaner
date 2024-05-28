@@ -34,6 +34,10 @@ public class TblProjectTable extends AbstractEntity  {
     private String packageName;
     // 字段转换
     private Boolean fileNameConvert;
+    // 索引名称
+    private String indexName;
+    // 创建人名称
+    private String createName;
 
     public String getPrefixName() {
         return prefixName;
@@ -83,6 +87,10 @@ public class TblProjectTable extends AbstractEntity  {
             ", projectCode = " + projectCode +
             ", znName = " + znName +
             ", codeName = " + codeName +
+            ", packageName = " + packageName +
+            ", fileNameConvert = " + fileNameConvert +
+            ", indexName = " + indexName +
+            ", createName = " + createName +
         "}";
     }
 
@@ -146,5 +154,21 @@ public class TblProjectTable extends AbstractEntity  {
 
     public void setFileNameConvert(Boolean fileNameConvert) {
         this.fileNameConvert = fileNameConvert;
+    }
+
+    public String getIndexName() {
+        return indexName;
+    }
+
+    public void setIndexName(String indexName) {
+        this.indexName = indexName;
+    }
+
+    public String getCreateName() {
+        return createName;
+    }
+
+    public void setCreateName(String createName) {
+        this.createName = createName;
     }
 }

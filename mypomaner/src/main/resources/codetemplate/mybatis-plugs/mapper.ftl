@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * Copyright: ${createFileDateYear} . All rights reserved.
 * </p>
 * <p>
-* Company: yangzibo
+* Company: ${createFileAuth}
 * </p>
 * <p>
 * CreateDate:${createFileDate}

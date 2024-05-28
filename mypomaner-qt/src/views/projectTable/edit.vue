@@ -1,32 +1,37 @@
 <template>
   <div class="container">
-    <lay-row space="12">
-      <lay-col md="16">
-        <lay-form-item label="数据表名称" >
-          <lay-input v-model="projectTableSaveDto.name"/>
-        </lay-form-item>
-        <lay-form-item label="代码类名称" mode="inline">
-          <lay-input v-model="projectTableSaveDto.codeName"/>
-        </lay-form-item>
-        <lay-form-item label="代码包名" mode="inline">
-          <lay-input v-model="projectTableSaveDto.packageName"/>
-        </lay-form-item>
-        <lay-form-item label="表中文名" mode="inline">
-          <lay-input v-model="projectTableSaveDto.znName"/>
-        </lay-form-item>
-        <lay-form-item label="是否启用" mode="inline">
-          <lay-switch v-model="projectTableSaveDto.enabled"/>
-        </lay-form-item>
-        <lay-form-item label="数据库和代码字段是否转换" mode="inline">
-          <lay-switch v-model="projectTableSaveDto.fileNameConvert" />
-        </lay-form-item>
-      </lay-col>
-      <lay-col md="8">
+    <lay-form >
+      <lay-form-item label="数据表名称" >
+        <lay-input v-model="projectTableSaveDto.name"/>
+      </lay-form-item>
+      <lay-form-item label="代码类名称" mode="inline">
+        <lay-input v-model="projectTableSaveDto.codeName"/>
+      </lay-form-item>
+      <lay-form-item label="代码包名" mode="inline">
+        <lay-input v-model="projectTableSaveDto.packageName"/>
+      </lay-form-item>
+      <lay-form-item label="表中文名" mode="inline">
+        <lay-input v-model="projectTableSaveDto.znName"/>
+      </lay-form-item>
+      <lay-form-item label="是否启用" mode="inline">
+        <lay-switch v-model="projectTableSaveDto.enabled"/>
+      </lay-form-item>
+      <lay-form-item label="表字段转小驼峰" mode="inline">
+        <lay-switch v-model="projectTableSaveDto.fileNameConvert" />
+      </lay-form-item>
+      <lay-form-item label="索引名称前缀" mode="inline">
+        <lay-input v-model="projectTableSaveDto.indexName" />
+      </lay-form-item>
+      <lay-form-item label="表和实体类创建人" mode="inline">
+        <lay-input v-model="projectTableSaveDto.createName" />
+      </lay-form-item>
+      <lay-form-item>
         <lay-button @click="addData">添加数据</lay-button>
         <lay-button @click="saveOpData">保存数据</lay-button>
         <lay-button @click="toHome" type="normal">返回主页</lay-button>
-      </lay-col>
-    </lay-row>
+      </lay-form-item>
+    </lay-form>
+
     <lay-row>
       <lay-table :columns="tableThead" :data-source="tableTbody"
                  height="450px">
@@ -44,6 +49,9 @@
         </template>
         <template #fieldAuto="{ row }">
           <lay-switch v-model="row.fieldAuto"></lay-switch>
+        </template>
+        <template #indexStatus="{ row }">
+          <lay-switch v-model="row.indexStatus"></lay-switch>
         </template>
         <template #fieldDataType="{ row }">
           <lay-select v-model="row.fieldDataType">
@@ -163,7 +171,12 @@ let tableThead = [
     key: "fieldAuto",
     customSlot: "fieldAuto"
   },
-
+  {
+    title: "字段是否索引",
+    width: "60px",
+    key: "indexStatus",
+    customSlot: "indexStatus"
+  },
   {
     title: "字段默认值",
     width: "80px",
@@ -208,6 +221,7 @@ function addData() {
       fieldDec: '',
       fieldDefaultVal: '',
       fieldHtmlType: '',
+      indexStatus: false,
       tableId: projectTableSaveDto.id,
       projectCode: projectCode.value,
       enabled: true,
@@ -226,6 +240,7 @@ const toHome = () => {
   router.push({
     path: '/projectTableList',
     query: {
+      createName: projectTableSaveDto.createName,
       projectCode: projectCode.value
     }
   })
@@ -247,6 +262,13 @@ function saveOpData() {
 <style scoped lang="scss">
 .container{
   padding: 10px 5px;
+  :deep(.layui-form-label){
+    width: 120px !important;
+  }
+  :deep(.layui-form-label + .layui-input-block){
+    margin-left: 135px !important;
+  }
 }
+
 </style>
    
